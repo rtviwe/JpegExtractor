@@ -1,3 +1,5 @@
 ﻿  JpegExtractor.cpp
-c:\users\rtviw\source\repos\jpegextractor\jpegextractor\jpegextractor.cpp(221): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\users\rtviw\source\repos\jpegextractor\jpegextractor\jpegextractor.cpp(99): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\rtviw\source\repos\jpegextractor\jpegextractor\jpegextractor.cpp(104): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\rtviw\source\repos\jpegextractor\jpegextractor\jpegextractor.cpp(236): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
   JpegExtractor.vcxproj -> C:\Users\rtviw\source\repos\JpegExtractor\Debug\JpegExtractor.lib

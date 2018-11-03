@@ -7,7 +7,11 @@
 
 struct Component
 {
+	Component() = default;
+	Component(const Component& component);
 	Component(int id, int hor, int ver, int idOfTable);
+
+	~Component() = default;
 
 	std::ostream& writeTo(std::ostream& ostrm) const;
 

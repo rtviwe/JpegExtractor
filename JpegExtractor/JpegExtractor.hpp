@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <vector>
+#include "QuantizationTable.hpp"
 #include "Component.hpp"
 
 class JpegExtractor
@@ -11,8 +12,9 @@ class JpegExtractor
 public:
 	JpegExtractor() = default;
 	JpegExtractor(std::string pathToFile);
+	JpegExtractor(const JpegExtractor& jpegExtractor);
 
-	~JpegExtractor();
+	~JpegExtractor() = default;
 
 	void analyzeFile();
 	void readCommentary(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
@@ -23,7 +25,7 @@ public:
 	int getHeight();
 	int getWidth();
 	std::string getCommentary();
-	std::vector<int**> getTablesOfQuantization();
+	std::vector<QuantizationTable> getTablesOfQuantization();
 	std::vector<Component> getComponents();
 	std::vector<int**> getTablesOfHuffman();
 private:
@@ -34,7 +36,7 @@ private:
 	int heightOfImage_{ 0 };
 	int widthOfImage_{ 0 };
 	int amountOfComponents_{ 0 };
-	std::vector<int**> tablesOfQuantization_;
+	std::vector<QuantizationTable> tablesOfQuantization_;
 	std::vector<Component> components_;
 	std::vector<int**> tablesOfHuffman_;
 

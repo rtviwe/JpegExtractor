@@ -4,26 +4,26 @@
 #include <iomanip>
 #include "JpegExtractor.hpp"
 
-bool isFileEmpty(std::ifstream &f)
+bool isFileEmpty(std::ifstream &ifs)
 {
 	char c;
-	f >> c;
-	if (!f)
+	ifs >> c;
+	if (!ifs)
 	{
 		return true;
 	}
 
-	f.seekg(0, std::ios::beg);
+	ifs.seekg(0, std::ios::beg);
 	return false;
 }
 
-void readByte(std::ifstream& fis, unsigned int& first, unsigned int& second)
+void readByte(std::ifstream& fis, unsigned int& previous, unsigned int& current)
 {
 	char* buffer = new char[1];
 	fis.read(buffer, 1);
 
-	first = second;
-	second = static_cast<int>(buffer[0]);
+	previous = current;
+	current = static_cast<int>(buffer[0]);
 }
 
 void turnTableToZigzagOrder(int** &table, int sizeOfTable)
@@ -86,9 +86,25 @@ JpegExtractor::JpegExtractor(std::string pathToFile)
 {
 }
 
-JpegExtractor::~JpegExtractor()
+JpegExtractor::JpegExtractor(const JpegExtractor& jpegExtractor)
 {
+	pathToFile_ = jpegExtractor.pathToFile_;
+	commentary_ = jpegExtractor.commentary_;
+	filesize_ = jpegExtractor.filesize_;
+	precisionOfFrameBase_ = jpegExtractor.precisionOfFrameBase_;
+	heightOfImage_ = jpegExtractor.heightOfImage_;
+	widthOfImage_ = jpegExtractor.widthOfImage_;
+	amountOfComponents_ = jpegExtractor.amountOfComponents_;
 
+	for (int i(0); i < jpegExtractor.tablesOfQuantization_.size(); i++)
+	{
+		tablesOfQuantization_[i] = jpegExtractor.tablesOfQuantization_[i];
+	}
+
+	for (int i(0); i < jpegExtractor.components_.size(); i++)
+	{
+		components_[i] = jpegExtractor.components_[i];
+	}
 }
 
 void JpegExtractor::analyzeFile()
@@ -98,14 +114,15 @@ void JpegExtractor::analyzeFile()
 		throw std::exception("Filepath is empty");
 	}
 
-	std::ifstream fis(pathToFile_.c_str(), std::ios_base::binary | std::ios_base::in);
+	std::ifstream fis(pathToFile_, std::ios_base::binary | std::ios_base::in);
 
 	if (isFileEmpty(fis)) {
 		throw std::exception("File is empty");
 	}
 
-	// TODO
-	// filesize_ = fis.tellg();
+	struct stat st_one;
+	stat(pathToFile_.c_str(), &st_one);
+	filesize_ = st_one.st_size;
 
 	unsigned int previousByte = 0;
 	unsigned int currentByte = 0;
@@ -219,21 +236,23 @@ void JpegExtractor::readQuantizationTable(std::ifstream& fis, unsigned int& prev
 	int sizeOfTable = sqrt(quantizationLength);
 
 	int** newTable = new int*[sizeOfTable];
-	tablesOfQuantization_.push_back(newTable);
-	int newIndex = tablesOfQuantization_.size() - 1;
 
 	for (int i(0); i < sizeOfTable; i++)
 	{
-		tablesOfQuantization_[newIndex][i] = new int[sizeOfTable];
+		newTable[i] = new int[sizeOfTable];
 
 		for (int j(0); j < sizeOfTable; j++)
 		{
 			readByte(fis, previousByte, currentByte);
-			tablesOfQuantization_[newIndex][i][j] = currentByte;
+			newTable[i][j] = currentByte;
 		}
 	}
 
-	turnTableToZigzagOrder(tablesOfQuantization_[newIndex], sizeOfTable);
+	QuantizationTable newQuantizationTable(newTable, sizeOfTable);
+	tablesOfQuantization_.push_back(newQuantizationTable);
+
+	int newIndex = tablesOfQuantization_.size() - 1;
+	tablesOfQuantization_[newIndex].turnTableToZigzagOrder();
 }
 
 int JpegExtractor::getFileSize()
@@ -256,7 +275,7 @@ std::string JpegExtractor::getCommentary()
 	return commentary_;
 }
 
-std::vector<int**> JpegExtractor::getTablesOfQuantization()
+std::vector<QuantizationTable> JpegExtractor::getTablesOfQuantization()
 {
 	return tablesOfQuantization_;
 }
@@ -265,9 +284,9 @@ std::vector<Component> JpegExtractor::getComponents()
 {
 	return components_;
 }
-
+/*
 std::vector<int**> JpegExtractor::getTablesOfHuffman()
 {
 	// TODO
-	return tablesOfQuantization_;
-}
+	return ;
+}*/
