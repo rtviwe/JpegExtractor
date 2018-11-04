@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <vector>
 #include "JpegExtractor.hpp"
 
 bool isFileEmpty(std::ifstream &ifs)
@@ -17,68 +18,32 @@ bool isFileEmpty(std::ifstream &ifs)
 	return false;
 }
 
-void readByte(std::ifstream& fis, unsigned int& previous, unsigned int& current)
+void readByte(std::ifstream& ifs, unsigned int& previous, unsigned int& current)
 {
-	char* buffer = new char[1];
-	fis.read(buffer, 1);
+	uint8_t buffer[1] = { 0 };
+	ifs.read((char*)buffer, sizeof(buffer));
 
 	previous = current;
-	current = static_cast<int>(buffer[0]);
+	current = buffer[0];
 }
 
-void turnTableToZigzagOrder(int** &table, int sizeOfTable)
+char getHexLetterFromNumberAt(int number, int position)
 {
-	int lastValue(sizeOfTable * sizeOfTable - 1);
-	int currNum(0);
-	int currDiag(0);
-	int loopFrom(0);
-	int loopTo(0);
-	int row(0);
-	int col(0);
+	int quotient(number);
+	int num(0);
+	int i(1);
+	std::vector<char> hexadecimalNumber;
 
-	int* temoFlatTable = new int[sizeOfTable * sizeOfTable];
-	int k(0);
-	for (int i(0); i < sizeOfTable; i++)
+	while (quotient != 0)
 	{
-		for (int j(0); j < sizeOfTable; j++)
-		{
-			temoFlatTable[k] = table[i][j];
-			++k;
-		}
+		num = quotient % 16;
+		hexadecimalNumber.push_back(num);
+		quotient = quotient / 16;
 	}
 
-	do
-	{
-		if (currDiag < sizeOfTable)
-		{
-			loopFrom = 0;
-			loopTo = currDiag;
-		}
-		else
-		{
-			loopFrom = currDiag - sizeOfTable + 1;
-			loopTo = sizeOfTable - 1;
-		}
-
-		for (int i = loopFrom; i <= loopTo; i++)
-		{
-			if (currDiag % 2 == 0)
-			{
-				row = loopTo - i + loopFrom;
-				col = i;
-			}
-			else
-			{
-				row = i;
-				col = loopTo - i + loopFrom;
-			}
-
-			table[row][col] = temoFlatTable[currNum];
-			++currNum;
-		}
-
-		++currDiag;
-	} while (currDiag <= lastValue);
+	hexadecimalNumber.push_back(0);
+	hexadecimalNumber.push_back(0);
+	return hexadecimalNumber[position];
 }
 
 JpegExtractor::JpegExtractor(std::string pathToFile)
@@ -87,24 +52,17 @@ JpegExtractor::JpegExtractor(std::string pathToFile)
 }
 
 JpegExtractor::JpegExtractor(const JpegExtractor& jpegExtractor)
+	: pathToFile_(jpegExtractor.pathToFile_),
+	commentary_(jpegExtractor.commentary_),
+	filesize_(jpegExtractor.filesize_),
+	precisionOfFrameBase_(jpegExtractor.precisionOfFrameBase_),
+	heightOfImage_(jpegExtractor.heightOfImage_),
+	widthOfImage_(jpegExtractor.widthOfImage_),
+	amountOfComponents_(jpegExtractor.amountOfComponents_),
+	quantizationTables_(jpegExtractor.quantizationTables_),
+	huffmanTables_(jpegExtractor.huffmanTables_),
+	components_(jpegExtractor.components_)
 {
-	pathToFile_ = jpegExtractor.pathToFile_;
-	commentary_ = jpegExtractor.commentary_;
-	filesize_ = jpegExtractor.filesize_;
-	precisionOfFrameBase_ = jpegExtractor.precisionOfFrameBase_;
-	heightOfImage_ = jpegExtractor.heightOfImage_;
-	widthOfImage_ = jpegExtractor.widthOfImage_;
-	amountOfComponents_ = jpegExtractor.amountOfComponents_;
-
-	for (int i(0); i < jpegExtractor.tablesOfQuantization_.size(); i++)
-	{
-		tablesOfQuantization_[i] = jpegExtractor.tablesOfQuantization_[i];
-	}
-
-	for (int i(0); i < jpegExtractor.components_.size(); i++)
-	{
-		components_[i] = jpegExtractor.components_[i];
-	}
 }
 
 void JpegExtractor::analyzeFile()
@@ -147,7 +105,7 @@ void JpegExtractor::analyzeFile()
 
 		if (startOfHuffman[0] == previousByte && startOfHuffman[1] == currentByte)
 		{
-
+			readHuffmanTable(fis, previousByte, currentByte);
 		}
 
 		if (startOfQuantization[0] == previousByte && startOfQuantization[1] == currentByte)
@@ -212,14 +170,14 @@ void JpegExtractor::readBaseFrame(std::ifstream& fis, unsigned int& previousByte
 
 		readByte(fis, previousByte, currentByte);
 		int thinning = static_cast<int>(currentByte);
-		int horizontalThinning = thinning % 10;
-		int verticalThinning = static_cast<int>((thinning - horizontalThinning) / 10);
+		char horizontalThinning = getHexLetterFromNumberAt(thinning, 0);
+		char verticalThinning = getHexLetterFromNumberAt(thinning, 1);
 
 		readByte(fis, previousByte, currentByte);
 		int idOfTable = static_cast<int>(currentByte);
 
 		Component component(id, horizontalThinning, verticalThinning, idOfTable);
-		components_.push_back(component);
+		components_.emplace_back(component);
 	}
 }
 
@@ -231,10 +189,10 @@ void JpegExtractor::readQuantizationTable(std::ifstream& fis, unsigned int& prev
 
 	readByte(fis, previousByte, currentByte);
 	int data = static_cast<int>(currentByte);
-	int identityOfTable = data % 10;
-	int lengthOfValuesInTable = data - identityOfTable;
-	int sizeOfTable = sqrt(quantizationLength);
+	int tableId = static_cast<int>(getHexLetterFromNumberAt(data, 0));
+	int valueLength = static_cast<int>(getHexLetterFromNumberAt(data, 1)) + 1;
 
+	int sizeOfTable = sqrt(quantizationLength);
 	int** newTable = new int*[sizeOfTable];
 
 	for (int i(0); i < sizeOfTable; i++)
@@ -248,11 +206,47 @@ void JpegExtractor::readQuantizationTable(std::ifstream& fis, unsigned int& prev
 		}
 	}
 
-	QuantizationTable newQuantizationTable(newTable, sizeOfTable);
-	tablesOfQuantization_.push_back(newQuantizationTable);
+	QuantizationTable newQuantizationTable(sizeOfTable, valueLength, tableId, newTable);
+	quantizationTables_.emplace_back(newQuantizationTable);
 
-	int newIndex = tablesOfQuantization_.size() - 1;
-	tablesOfQuantization_[newIndex].turnTableToZigzagOrder();
+	int newIndex = quantizationTables_.size() - 1;
+	quantizationTables_[newIndex].turnTableToZigzagOrder();
+}
+
+void JpegExtractor::readHuffmanTable(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte)
+{
+	readByte(fis, previousByte, currentByte);
+	readByte(fis, previousByte, currentByte);
+	int huffmanLength = static_cast<int>(previousByte) * 256 + static_cast<int>(currentByte) - lengthOfHuffmanSize;
+
+	readByte(fis, previousByte, currentByte);
+	int data = static_cast<int>(currentByte);
+	char tableId = getHexLetterFromNumberAt(data, 0);
+	char classTypeRaw = getHexLetterFromNumberAt(data, 1);
+
+	TypeHuffmanTable type;
+	switch (classTypeRaw)
+	{
+	case 0:
+		type = TypeHuffmanTable::DC_COEFFICIENTS;
+		break;
+	case 1:
+		type = TypeHuffmanTable::AC_COEFFICIENTS;
+		break;
+	default:
+		throw std::exception("Unknown type of huffman table");
+		break;
+	}
+
+	int* table = new int[huffmanLength];
+	for (int i(0); i < huffmanLength; i++)
+	{
+		readByte(fis, previousByte, currentByte);
+		table[i] = static_cast<int>(currentByte);
+	}
+
+	HuffmanTable huffmanTable(table, lengthOfHuffmanSize, type, tableId);
+	huffmanTables_.emplace_back(huffmanTable);
 }
 
 int JpegExtractor::getFileSize()
@@ -275,18 +269,17 @@ std::string JpegExtractor::getCommentary()
 	return commentary_;
 }
 
-std::vector<QuantizationTable> JpegExtractor::getTablesOfQuantization()
+std::vector<QuantizationTable> JpegExtractor::getQuantizationTables()
 {
-	return tablesOfQuantization_;
+	return quantizationTables_;
 }
 
 std::vector<Component> JpegExtractor::getComponents()
 {
 	return components_;
 }
-/*
-std::vector<int**> JpegExtractor::getTablesOfHuffman()
+
+std::vector<HuffmanTable> JpegExtractor::getHuffmanTables()
 {
-	// TODO
-	return ;
-}*/
+	return huffmanTables_;
+}

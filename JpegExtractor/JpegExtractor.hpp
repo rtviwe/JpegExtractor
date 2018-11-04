@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "QuantizationTable.hpp"
+#include "HuffmanTable.hpp"
 #include "Component.hpp"
 
 class JpegExtractor
@@ -20,14 +21,15 @@ public:
 	void readCommentary(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
 	void readBaseFrame(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
 	void readQuantizationTable(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
+	void readHuffmanTable(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
 
 	int getFileSize();
 	int getHeight();
 	int getWidth();
 	std::string getCommentary();
-	std::vector<QuantizationTable> getTablesOfQuantization();
+	std::vector<QuantizationTable> getQuantizationTables();
 	std::vector<Component> getComponents();
-	std::vector<int**> getTablesOfHuffman();
+	std::vector<HuffmanTable> getHuffmanTables();
 private:
 	std::string pathToFile_;
 	std::string commentary_;
@@ -36,43 +38,44 @@ private:
 	int heightOfImage_{ 0 };
 	int widthOfImage_{ 0 };
 	int amountOfComponents_{ 0 };
-	std::vector<QuantizationTable> tablesOfQuantization_;
+	std::vector<QuantizationTable> quantizationTables_;
 	std::vector<Component> components_;
-	std::vector<int**> tablesOfHuffman_;
+	std::vector<HuffmanTable> huffmanTables_;
 
 	const int lengthOfQuantizationSize = 3;
 	const int lengthOfCommentarySize = 2;
 	const int lengthOfFrameBaseSize = 2;
+	const int lengthOfHuffmanSize = 2;
 
 	// SOI
-	const unsigned int startOfFile[2]{ 0xFFFFFFFF, 0xFFFFFFD8 };
+	const unsigned int startOfFile[2]{ 0xFF, 0xD8 };
 
 	// SOF0
-	const unsigned int startOfFrameBase[2]{ 0xFFFFFFFF, 0xFFFFFFC0 };
+	const unsigned int startOfFrameBase[2]{ 0xFF, 0xC0 };
 
 	// SOF1
-	const unsigned int startOfFrameExtended[2]{ 0xFFFFFFFF, 0xFFFFFFC1 };
+	const unsigned int startOfFrameExtended[2]{ 0xFF, 0xC1 };
 
 	// SOF2
-	const unsigned int startOfFrameProgress[2]{ 0xFFFFFFFF, 0xFFFFFFC2 };
+	const unsigned int startOfFrameProgress[2]{ 0xFF, 0xC2 };
 
 	// DHT
-	const unsigned int startOfHuffman[2]{ 0xFFFFFFFF, 0xFFFFFFC4 };
+	const unsigned int startOfHuffman[2]{ 0xFF, 0xC4 };
 
 	// DQT
-	const unsigned int startOfQuantization[2]{ 0xFFFFFFFF, 0xFFFFFFDB };
+	const unsigned int startOfQuantization[2]{ 0xFF, 0xDB };
 
 	// DRI
-	const unsigned int startOfLengthOfRestartInterval[2]{ 0xFFFFFFFF, 0xFFFFFFDD };
+	const unsigned int startOfLengthOfRestartInterval[2]{ 0xFF, 0xDD };
 
 	// SOS
-	const unsigned int startOfScan[2]{ 0xFFFFFFFF, 0xFFFFFFDA };
+	const unsigned int startOfScan[2]{ 0xFF, 0xDA };
 
 	// COM
-	const unsigned int startOfCommentary[2]{ 0xFFFFFFFF, 0xFFFFFFFE };
+	const unsigned int startOfCommentary[2]{ 0xFF, 0xFE };
 
 	// EOI
-	const unsigned int startOfEnd[2]{ 0xFFFFFFFF, 0xFFFFFFD9 };
+	const unsigned int startOfEnd[2]{ 0xFF, 0xD9 };
 };
 
-#endif 
+#endif

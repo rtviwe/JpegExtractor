@@ -8,8 +8,8 @@
 struct Component
 {
 	Component() = default;
-	Component(const Component& component);
-	Component(int id, int hor, int ver, int idOfTable);
+	//Component(const Component& component);
+	Component(int id, int horizontalThinning, int verticalThinning, int idQuantizationTable);
 
 	~Component() = default;
 
@@ -18,7 +18,7 @@ struct Component
 	int id{ 0 };
 	int horizontalThinning{ 0 };
 	int verticalThinning{ 0 };
-	int idOfTableOfQuantization{ 0 };
+	int idQuantizationTable{ 0 };
 };
 
 std::ostream& operator<<(std::ostream& ostrm, const Component& rhs);

@@ -1,15 +1,9 @@
 #include "stdafx.h"
 #include "QuantizationTable.hpp"
 
-QuantizationTable::QuantizationTable(int newSize)
+/*QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
 {
-	size = newSize;
-	table = new int*[size];
-}
-
-QuantizationTable::QuantizationTable(const QuantizationTable& newTable)
-{
-	size = newTable.size;
+	size = qTable.size;
 	table = new int*[size];
 
 	for (int i(0); i < size; i++)
@@ -18,23 +12,26 @@ QuantizationTable::QuantizationTable(const QuantizationTable& newTable)
 
 		for (int j(0); j < size; j++)
 		{
-			table[i][j] = newTable.table[i][j];
+			table[i][j] = qTable.table[i][j];
 		}
 	}
-}
+}*/
 
-QuantizationTable::QuantizationTable(int** &newTable, int newSize)
+QuantizationTable::QuantizationTable(int size, int valueLength, int tableId, int** table)
 {
-	size = newSize;
-	table = new int*[size];
+	this->size = size;
+	this->valueLength = valueLength;
+	this->tableId = tableId;
+
+	this->table = new int*[size];
 
 	for (int i(0); i < size; i++)
 	{
-		table[i] = new int[size];
+		this->table[i] = new int[size];
 
 		for (int j(0); j < size; j++)
 		{
-			table[i][j] = newTable[i][j];
+			this->table[i][j] = table[i][j];
 		}
 	}
 }
@@ -49,13 +46,13 @@ void QuantizationTable::turnTableToZigzagOrder()
 	int row(0);
 	int col(0);
 
-	int* temoFlatTable = new int[size * size];
+	int* tempFlatTable = new int[size * size];
 	int k(0);
 	for (int i(0); i < size; i++)
 	{
 		for (int j(0); j < size; j++)
 		{
-			temoFlatTable[k] = table[i][j];
+			tempFlatTable[k] = table[i][j];
 			++k;
 		}
 	}
@@ -86,10 +83,30 @@ void QuantizationTable::turnTableToZigzagOrder()
 				col = loopTo - i + loopFrom;
 			}
 
-			table[row][col] = temoFlatTable[currNum];
+			table[row][col] = tempFlatTable[currNum];
 			++currNum;
 		}
 
 		++currDiag;
 	} while (currDiag <= lastValue);
+}
+
+std::ostream& operator<<(std::ostream& ostrm, const QuantizationTable& rhs)
+{
+	return rhs.writeTo(ostrm);
+}
+
+std::ostream& QuantizationTable::writeTo(std::ostream& ostrm) const
+{
+	for (int j(0); j < size; j++)
+	{
+		for (int k(0); k < size; k++)
+		{
+			ostrm << table[j][k] << "\t";
+		}
+		ostrm << std::endl;
+	}
+	ostrm << std::endl;
+
+	return ostrm;
 }

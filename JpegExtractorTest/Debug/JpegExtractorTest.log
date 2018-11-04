@@ -1,1 +1,5 @@
-﻿  JpegExtractorTest.vcxproj -> C:\Users\rtviw\source\repos\JpegExtractor\Debug\JpegExtractorTest.exe
+﻿  JpegExtractorTest.cpp
+c:\users\rtviw\source\repos\jpegextractor\jpegextractortest\jpegextractortest.cpp(32): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\rtviw\source\repos\jpegextractor\jpegextractortest\jpegextractortest.cpp(41): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\rtviw\source\repos\jpegextractor\jpegextractortest\jpegextractortest.cpp(47): warning C4018: <: несоответствие типов со знаком и без знака
+  JpegExtractorTest.vcxproj -> C:\Users\rtviw\source\repos\JpegExtractor\Debug\JpegExtractorTest.exe

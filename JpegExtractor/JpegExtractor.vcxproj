@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="HuffmanTable.hpp" />
     <ClInclude Include="JpegExtractor.hpp" />
     <ClInclude Include="QuantizationTable.hpp" />
     <ClInclude Include="stdafx.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="HuffmanTable.cpp" />
     <ClCompile Include="JpegExtractor.cpp" />
     <ClCompile Include="QuantizationTable.cpp" />
     <ClCompile Include="stdafx.cpp">

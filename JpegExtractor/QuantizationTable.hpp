@@ -2,20 +2,29 @@
 #ifndef QUANTIZATION_TABLE_HPP
 #define QUANTIZATION_TABLE_HPP
 
+#include "stdafx.h"
+#include <iostream>
+
 struct QuantizationTable
 {
-public:
 	QuantizationTable() = default;
-	QuantizationTable(int newSize);
-	QuantizationTable(const QuantizationTable& newTable);
-	QuantizationTable(int** &newTable, int newSize);
+	//QuantizationTable(const QuantizationTable& newTable);
+	QuantizationTable(int size, int valueLength, int tableId, int** table);
 
-	int size{ 0 };
-	int** table{ nullptr };
+	~QuantizationTable() = default;
+
+	QuantizationTable& operator=(const QuantizationTable& table) = default;
 
 	void turnTableToZigzagOrder();
 
-	~QuantizationTable() = default;
+	std::ostream& writeTo(std::ostream& ostrm) const;
+
+	int size{ 0 };
+	int valueLength{ 0 };
+	int tableId{ 0 };
+	int** table{ nullptr };
 };
+
+std::ostream& operator<<(std::ostream& ostrm, const QuantizationTable& rhs);
 
 #endif
