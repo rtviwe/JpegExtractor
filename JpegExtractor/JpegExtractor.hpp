@@ -51,13 +51,7 @@ private:
 	const unsigned int startOfFile[2]{ 0xFF, 0xD8 };
 
 	// SOF0
-	const unsigned int startOfFrameBase[2]{ 0xFF, 0xC0 };
-
-	// SOF1
-	const unsigned int startOfFrameExtended[2]{ 0xFF, 0xC1 };
-
-	// SOF2
-	const unsigned int startOfFrameProgress[2]{ 0xFF, 0xC2 };
+	const unsigned int startOfFrame[2]{ 0xFF, 0xC0 };
 
 	// DHT
 	const unsigned int startOfHuffman[2]{ 0xFF, 0xC4 };
@@ -67,9 +61,6 @@ private:
 
 	// DRI
 	const unsigned int startOfLengthOfRestartInterval[2]{ 0xFF, 0xDD };
-
-	// SOS
-	const unsigned int startOfScan[2]{ 0xFF, 0xDA };
 
 	// COM
 	const unsigned int startOfCommentary[2]{ 0xFF, 0xFE };

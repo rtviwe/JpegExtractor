@@ -84,23 +84,14 @@ void JpegExtractor::analyzeFile()
 
 	unsigned int previousByte = 0;
 	unsigned int currentByte = 0;
+
 	while (!fis.eof())
 	{
 		readByte(fis, previousByte, currentByte);
 
-		if (startOfFrameBase[0] == previousByte && startOfFrameBase[1] == currentByte)
+		if (startOfFrame[0] == previousByte && startOfFrame[1] == currentByte)
 		{
 			readBaseFrame(fis, previousByte, currentByte);
-		}
-
-		if (startOfFrameExtended[0] == previousByte && startOfFrameExtended[1] == currentByte)
-		{
-
-		}
-
-		if (startOfFrameProgress[0] == previousByte && startOfFrameProgress[1] == currentByte)
-		{
-
 		}
 
 		if (startOfHuffman[0] == previousByte && startOfHuffman[1] == currentByte)
@@ -111,16 +102,6 @@ void JpegExtractor::analyzeFile()
 		if (startOfQuantization[0] == previousByte && startOfQuantization[1] == currentByte)
 		{
 			readQuantizationTable(fis, previousByte, currentByte);
-		}
-
-		if (startOfLengthOfRestartInterval[0] == previousByte && startOfLengthOfRestartInterval[1] == currentByte)
-		{
-
-		}
-
-		if (startOfScan[0] == previousByte && startOfScan[1] == currentByte)
-		{
-
 		}
 
 		if (startOfCommentary[0] == previousByte && startOfCommentary[1] == currentByte)
@@ -246,6 +227,7 @@ void JpegExtractor::readHuffmanTable(std::ifstream& fis, unsigned int& previousB
 	}
 
 	HuffmanTable huffmanTable(table, lengthOfHuffmanSize, type, tableId);
+	huffmanTable.generateTree();
 	huffmanTables_.emplace_back(huffmanTable);
 }
 

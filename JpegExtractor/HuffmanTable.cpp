@@ -20,6 +20,11 @@ HuffmanTable::HuffmanTable(int* amountOfCodes, int size, TypeHuffmanTable type, 
 {
 }
 
+void HuffmanTable::generateTree()
+{
+	// TODO
+}
+
 std::ostream& HuffmanTable::writeTo(std::ostream& ostrm) const
 {
 	if (type == TypeHuffmanTable::AC_COEFFICIENTS)

@@ -1,5 +1,7 @@
-﻿  JpegExtractor.cpp
-c:\users\rtviw\source\repos\jpegextractor\jpegextractor\jpegextractor.cpp(195): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+﻿  Component.cpp
+  HuffmanTable.cpp
+  JpegExtractor.cpp
+c:\users\rtviw\source\repos\jpegextractor\jpegextractor\jpegextractor.cpp(176): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
   QuantizationTable.cpp
   Создание кода...
   JpegExtractor.vcxproj -> C:\Users\rtviw\source\repos\JpegExtractor\Debug\JpegExtractor.lib

@@ -17,6 +17,8 @@ struct HuffmanTable
 
 	~HuffmanTable() = default;
 
+	void generateTree();
+
 	std::ostream& writeTo(std::ostream& ostrm) const;
 
 	int* amountOfCodes{ nullptr };
