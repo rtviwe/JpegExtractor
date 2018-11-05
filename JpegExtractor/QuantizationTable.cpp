@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "QuantizationTable.hpp"
 
-/*QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
+QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
 {
 	size = qTable.size;
+	valueLength = qTable.valueLength;
+	tableId = qTable.tableId;
 	table = new int*[size];
 
 	for (int i(0); i < size; i++)
@@ -15,7 +17,7 @@
 			table[i][j] = qTable.table[i][j];
 		}
 	}
-}*/
+}
 
 QuantizationTable::QuantizationTable(int size, int valueLength, int tableId, int** table)
 {

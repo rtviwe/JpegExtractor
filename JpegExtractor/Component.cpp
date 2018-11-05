@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Component.hpp"
 
-/*Component::Component(const Component& component)
-	: id(component.id), 
-	horizontalThinning(component.horizontalThinning), 
-	verticalThinning(component.verticalThinning),
-	idQuantizationTable(component.idQuantizationTable)
+Component::Component(const Component& component)
 {
-}*/
+	id = component.id;
+	horizontalThinning = component.horizontalThinning;
+	verticalThinning = component.verticalThinning;
+	idQuantizationTable = component.idQuantizationTable;
+}
 
 Component::Component(int id, int horizontalThinning, int verticalThinning, int idOfTable)
 	: id(id),

@@ -12,7 +12,7 @@ enum class TypeHuffmanTable
 struct HuffmanTable
 {
 	HuffmanTable() = default;
-	//HuffmanTable(const HuffmanTable& huffmanTable);
+	HuffmanTable(const HuffmanTable& huffmanTable);
 	HuffmanTable(int* table, int size, TypeHuffmanTable type, int tableId);
 
 	~HuffmanTable() = default;

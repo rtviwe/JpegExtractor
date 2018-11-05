@@ -2,11 +2,18 @@
 #include <iostream>
 #include "HuffmanTable.hpp"
 
-/*HuffmanTable::HuffmanTable(const HuffmanTable& huffmanTable)
+HuffmanTable::HuffmanTable(const HuffmanTable& huffmanTable)
 {
 	size = huffmanTable.size;
+	type = huffmanTable.type;
+	tableId = huffmanTable.tableId;
 	amountOfCodes = new int[size];
-}*/
+
+	for (int i(0); i < size; i++)
+	{
+		amountOfCodes[i] = huffmanTable.amountOfCodes[i];
+	}
+}
 
 HuffmanTable::HuffmanTable(int* amountOfCodes, int size, TypeHuffmanTable type, int tableId)
 	:amountOfCodes(amountOfCodes), size(size), type(type), tableId(tableId)

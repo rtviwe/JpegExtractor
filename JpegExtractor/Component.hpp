@@ -8,7 +8,7 @@
 struct Component
 {
 	Component() = default;
-	//Component(const Component& component);
+	Component(const Component& component);
 	Component(int id, int horizontalThinning, int verticalThinning, int idQuantizationTable);
 
 	~Component() = default;

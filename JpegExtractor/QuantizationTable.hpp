@@ -8,7 +8,7 @@
 struct QuantizationTable
 {
 	QuantizationTable() = default;
-	//QuantizationTable(const QuantizationTable& newTable);
+	QuantizationTable(const QuantizationTable& newTable);
 	QuantizationTable(int size, int valueLength, int tableId, int** table);
 
 	~QuantizationTable() = default;
