@@ -2,10 +2,10 @@
 #include "QuantizationTable.hpp"
 
 QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
+	: size(qTable.size),
+	valueLength(qTable.valueLength),
+	tableId(qTable.tableId)
 {
-	size = qTable.size;
-	valueLength = qTable.valueLength;
-	tableId = qTable.tableId;
 	table = new int*[size];
 
 	for (int i(0); i < size; i++)
@@ -19,12 +19,11 @@ QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
 	}
 }
 
-QuantizationTable::QuantizationTable(int size, int valueLength, int tableId, int** table)
+QuantizationTable::QuantizationTable(const int size, const int valueLength, const int tableId, int** table)
+	: size(size),
+	valueLength(valueLength),
+	tableId(tableId)
 {
-	this->size = size;
-	this->valueLength = valueLength;
-	this->tableId = tableId;
-
 	this->table = new int*[size];
 
 	for (int i(0); i < size; i++)
@@ -36,6 +35,11 @@ QuantizationTable::QuantizationTable(int size, int valueLength, int tableId, int
 			this->table[i][j] = table[i][j];
 		}
 	}
+}
+
+QuantizationTable::~QuantizationTable()
+{
+	delete[] table;
 }
 
 void QuantizationTable::turnTableToZigzagOrder()
@@ -91,6 +95,22 @@ void QuantizationTable::turnTableToZigzagOrder()
 
 		++currDiag;
 	} while (currDiag <= lastValue);
+}
+
+QuantizationTable& QuantizationTable::operator=(const QuantizationTable& obj)
+{
+	if (this != &obj)
+	{
+		int** newTable(new int*[obj.size]);
+		delete[] table;
+		table = newTable;
+		std::copy(obj.table, obj.table + obj.size, table);
+
+		size = obj.size;
+		valueLength = obj.valueLength;
+		tableId = obj.tableId;
+	}
+	return *this;
 }
 
 std::ostream& operator<<(std::ostream& ostrm, const QuantizationTable& rhs)

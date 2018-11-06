@@ -9,11 +9,13 @@ struct Component
 {
 	Component() = default;
 	Component(const Component& component);
-	Component(int id, int horizontalThinning, int verticalThinning, int idQuantizationTable);
+	Component(const int id, const int horizontalThinning, const int verticalThinning, const int idQuantizationTable);
 
 	~Component() = default;
 
 	std::ostream& writeTo(std::ostream& ostrm) const;
+
+	Component& operator=(const Component& table) = default;
 
 	int id{ 0 };
 	int horizontalThinning{ 0 };

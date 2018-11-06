@@ -2,14 +2,14 @@
 #include "Component.hpp"
 
 Component::Component(const Component& component)
+	: id(component.id),
+	horizontalThinning(component.horizontalThinning),
+	verticalThinning(component.verticalThinning),
+	idQuantizationTable(component.idQuantizationTable)
 {
-	id = component.id;
-	horizontalThinning = component.horizontalThinning;
-	verticalThinning = component.verticalThinning;
-	idQuantizationTable = component.idQuantizationTable;
 }
 
-Component::Component(int id, int horizontalThinning, int verticalThinning, int idOfTable)
+Component::Component(const int id, const int horizontalThinning, const int verticalThinning, const int idOfTable)
 	: id(id),
 	horizontalThinning(horizontalThinning), 
 	verticalThinning(verticalThinning), 

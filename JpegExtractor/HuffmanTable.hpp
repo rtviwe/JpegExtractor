@@ -13,13 +13,15 @@ struct HuffmanTable
 {
 	HuffmanTable() = default;
 	HuffmanTable(const HuffmanTable& huffmanTable);
-	HuffmanTable(int* table, int size, TypeHuffmanTable type, int tableId);
+	HuffmanTable(int* table, const int size, const TypeHuffmanTable type, const int tableId);
 
-	~HuffmanTable() = default;
+	~HuffmanTable();
 
 	void generateTree();
 
 	std::ostream& writeTo(std::ostream& ostrm) const;
+
+	HuffmanTable& operator=(const HuffmanTable& table);
 
 	int* amountOfCodes{ nullptr };
 	int size{ 0 };

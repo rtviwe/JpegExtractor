@@ -9,11 +9,11 @@ struct QuantizationTable
 {
 	QuantizationTable() = default;
 	QuantizationTable(const QuantizationTable& newTable);
-	QuantizationTable(int size, int valueLength, int tableId, int** table);
+	QuantizationTable(const int size, const int valueLength, const int tableId, int** table);
 
-	~QuantizationTable() = default;
+	~QuantizationTable();
 
-	QuantizationTable& operator=(const QuantizationTable& table) = default;
+	QuantizationTable& operator=(const QuantizationTable& table);
 
 	void turnTableToZigzagOrder();
 

@@ -3,21 +3,22 @@
 #include "HuffmanTable.hpp"
 
 HuffmanTable::HuffmanTable(const HuffmanTable& huffmanTable)
+	: size(huffmanTable.size),
+	type(huffmanTable.type),
+	tableId(huffmanTable.tableId)
 {
-	size = huffmanTable.size;
-	type = huffmanTable.type;
-	tableId = huffmanTable.tableId;
 	amountOfCodes = new int[size];
-
-	for (int i(0); i < size; i++)
-	{
-		amountOfCodes[i] = huffmanTable.amountOfCodes[i];
-	}
+	std::copy(huffmanTable.amountOfCodes, huffmanTable.amountOfCodes + size, huffmanTable.amountOfCodes);
 }
 
-HuffmanTable::HuffmanTable(int* amountOfCodes, int size, TypeHuffmanTable type, int tableId)
+HuffmanTable::HuffmanTable(int* amountOfCodes, const int size, const TypeHuffmanTable type, const int tableId)
 	:amountOfCodes(amountOfCodes), size(size), type(type), tableId(tableId)
 {
+}
+
+HuffmanTable::~HuffmanTable()
+{
+	delete[] amountOfCodes;
 }
 
 void HuffmanTable::generateTree()
@@ -36,6 +37,22 @@ std::ostream& HuffmanTable::writeTo(std::ostream& ostrm) const
 		ostrm << "DC_COEFFICIENTS";
 	}
 	return ostrm;
+}
+
+HuffmanTable& HuffmanTable::operator=(const HuffmanTable& obj)
+{
+	if (this != &obj)
+	{
+		int* newAmountOfCodes(new int[obj.size]);
+		delete[] amountOfCodes;
+		amountOfCodes = newAmountOfCodes;
+		std::copy(obj.amountOfCodes, obj.amountOfCodes + obj.size, amountOfCodes);
+
+		size = obj.size;
+		type = obj.type;
+		tableId = obj.tableId;
+	}
+	return *this;
 }
 
 std::ostream& operator<<(std::ostream& ostrm, const HuffmanTable& rhs)
