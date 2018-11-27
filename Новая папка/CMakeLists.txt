@@ -4,6 +4,4 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "cmake")
 
 project(JpegExtractor)
 
-include(cmake/build_prefix.cmake)
-
 add_subdirectory(jpeg_extractor)
