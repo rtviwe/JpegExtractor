@@ -1,0 +1,2 @@
+add_subdirectory(jpeg_extractor)
+add_subdirectory(jpeg_extractor_test)

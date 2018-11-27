@@ -1,0 +1,2 @@
+add_executable(jpeg_extractor_test jpeg_extractor_test.cpp)
+set_property(TARGET jpeg_extractor_test PROPERTY CXX_STANDARD 14)
