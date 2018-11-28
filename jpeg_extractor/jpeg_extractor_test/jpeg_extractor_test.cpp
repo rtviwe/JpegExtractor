@@ -1,12 +1,14 @@
 #include <iostream>
 #include <string>
-/*#include "../jpeg_extractor/jpeg_extractor.hpp"
+#include "../jpeg_extractor/jpeg_extractor.hpp"
 #include "../jpeg_extractor/component.hpp"
 #include "../jpeg_extractor/huffman_table.hpp"*/
 
+using namespace std;
+
 int main()
 {
-	/*string path1 = "C:\\Users\\st\\Desktop\\temp\\JpegExtractor\\resimg1.jpg";
+	string path1 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg";
 	string path2 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img2.jpg";
 	string path3 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img3.jpg";
 	string path4 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img4.jpg";
@@ -46,7 +48,7 @@ int main()
 	{
 		HuffmanTable table = je.getHuffmanTables()[i];
 		std::cout << table << std::endl;
-	}*/
+	}
 
 	return 0;
 }
