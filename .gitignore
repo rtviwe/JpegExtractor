@@ -21,8 +21,12 @@
 bld/
 [Bb]in/
 [Oo]bj/
-JpegExtractor/[Dd]ebug/
-JpegExtractorTest/[Dd]ebug/
+jpeg_extractor/[Dd]ebug/
+jpeg_extractor/[Dd]ebug/
+jpeg_extractor/latex/
+jpeg_extractor/html/
+jpeg_extractor/jpeg_extractor/html
+jpeg_extractor/jpeg_extractor/latex
 
 # Visual Studio 2015 cache/options directory
 .vs/

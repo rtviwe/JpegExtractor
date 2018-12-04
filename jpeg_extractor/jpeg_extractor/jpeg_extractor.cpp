@@ -59,7 +59,6 @@ JpegExtractor::JpegExtractor(const JpegExtractor& jpegExtractor)
 	widthOfImage_(jpegExtractor.widthOfImage_),
 	amountOfComponents_(jpegExtractor.amountOfComponents_),
 	quantizationTables_(jpegExtractor.quantizationTables_),
-	huffmanTables_(jpegExtractor.huffmanTables_),
 	components_(jpegExtractor.components_)
 {
 }
@@ -91,11 +90,6 @@ void JpegExtractor::analyzeFile()
 		if (startOfFrame[0] == previousByte && startOfFrame[1] == currentByte)
 		{
 			readBaseFrame(fis, previousByte, currentByte);
-		}
-
-		if (startOfHuffman[0] == previousByte && startOfHuffman[1] == currentByte)
-		{
-			readHuffmanTable(fis, previousByte, currentByte);
 		}
 
 		if (startOfQuantization[0] == previousByte && startOfQuantization[1] == currentByte)
@@ -193,43 +187,6 @@ void JpegExtractor::readQuantizationTable(std::ifstream& fis, unsigned int& prev
 	quantizationTables_[newIndex].turnTableToZigzagOrder();
 }
 
-void JpegExtractor::readHuffmanTable(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte)
-{
-	readByte(fis, previousByte, currentByte);
-	readByte(fis, previousByte, currentByte);
-	int huffmanLength = static_cast<int>(previousByte) * 256 + static_cast<int>(currentByte) - lengthOfHuffmanSize;
-
-	readByte(fis, previousByte, currentByte);
-	int data = static_cast<int>(currentByte);
-	char tableId = getHexLetterFromNumberAt(data, 0);
-	char classTypeRaw = getHexLetterFromNumberAt(data, 1);
-
-	TypeHuffmanTable type;
-	switch (classTypeRaw)
-	{
-	case 0:
-		type = TypeHuffmanTable::DC_COEFFICIENTS;
-		break;
-	case 1:
-		type = TypeHuffmanTable::AC_COEFFICIENTS;
-		break;
-	default:
-		throw std::exception("Unknown type of huffman table");
-		break;
-	}
-
-	int* table = new int[huffmanLength];
-	for (int i(0); i < huffmanLength; i++)
-	{
-		readByte(fis, previousByte, currentByte);
-		table[i] = static_cast<int>(currentByte);
-	}
-
-	HuffmanTable huffmanTable(table, lengthOfHuffmanSize, type, tableId);
-	huffmanTable.generateTree();
-	huffmanTables_.emplace_back(huffmanTable);
-}
-
 int JpegExtractor::getFileSize()
 {
 	return filesize_;
@@ -258,9 +215,4 @@ std::vector<QuantizationTable> JpegExtractor::getQuantizationTables()
 std::vector<Component> JpegExtractor::getComponents()
 {
 	return components_;
-}
-
-std::vector<HuffmanTable> JpegExtractor::getHuffmanTables()
-{
-	return huffmanTables_;
 }

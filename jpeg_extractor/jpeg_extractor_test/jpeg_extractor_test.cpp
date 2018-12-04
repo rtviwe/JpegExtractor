@@ -2,7 +2,6 @@
 #include <string>
 #include "../jpeg_extractor/jpeg_extractor.hpp"
 #include "../jpeg_extractor/component.hpp"
-#include "../jpeg_extractor/huffman_table.hpp"*/
 
 using namespace std;
 
@@ -41,13 +40,6 @@ int main()
 	for (int i(0); i < je.getComponents().size(); i++)
 	{
 		std::cout << "Component #" << i << " " << je.getComponents()[i] << std::endl;
-	}
-
-	// Таблицы Хаффмана
-	for (int i(0); i < je.getHuffmanTables().size(); i++)
-	{
-		HuffmanTable table = je.getHuffmanTables()[i];
-		std::cout << table << std::endl;
 	}
 
 	return 0;

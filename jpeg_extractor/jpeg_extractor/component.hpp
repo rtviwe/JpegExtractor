@@ -4,24 +4,66 @@
 
 #include <iostream>
 
+/*
+@author Igor Spiridonov
+@version 1.0.0
+@date 11.11.2018
+@brief Заголовочный файл для цветового компонента
+@detailed Содержит в себе данные о данном цветовом компоненте
+ */
 struct Component
 {
+	/*
+	@brief Конструктор
+	*/
 	Component() = default;
+
+	/*
+	@brief Конструктор копирования
+	@param[in] component Цветовой компонент, из которого копируются данные
+	*/
 	Component(const Component& component);
+
+	/*
+	@brief Конструктор
+	@param[in] id Идентификатор компонента
+	@param[in] horizontalThinning Горизонтальное прореживание
+	@param[in] verticalThinning Вертикальное прореживание
+	@param[in] idQuantizationTable Идентификатор таблицы квантования
+	*/
 	Component(const int id, const int horizontalThinning, const int verticalThinning, const int idQuantizationTable);
 
+	/*
+	@brief Деструктор
+	*/
 	~Component() = default;
-
+	
+	/*
+	@brief Вывод данных о компоненте
+	@param[out] ostrm Поток вывода
+	@return Поток вывода
+	*/
 	std::ostream& writeTo(std::ostream& ostrm) const;
 
+	/*
+	@brief Оператор присваивания
+	@param[in] table Цветовой компонент, к которому присваивается текущий объект
+	@return Новый цветовой компонент
+	*/
 	Component& operator=(const Component& table) = default;
 
-	int id{ 0 };
-	int horizontalThinning{ 0 };
-	int verticalThinning{ 0 };
-	int idQuantizationTable{ 0 };
+	int id{ 0 }; //< Идентификатор
+	int horizontalThinning{ 0 }; //< Горизонтальное прореживание
+	int verticalThinning{ 0 }; //< Вертикальное прореживание
+	int idQuantizationTable{ 0 }; //< Идентификатор таблицы квантования
 };
 
+/*
+@brief Оператор вывода
+@param[out] ostrm Поток вывода
+@param[out] rhs Компонент, который выводится в поток вывода
+@return Поток вывода
+*/
 std::ostream& operator<<(std::ostream& ostrm, const Component& rhs);
 
 #endif
