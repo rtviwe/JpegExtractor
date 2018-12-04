@@ -1,4 +1,4 @@
-#ifndef JPEG_EXTRACTOR_HPP
+п»ї#ifndef JPEG_EXTRACTOR_HPP
 #define JPEG_EXTRACTOR_HPP
 
 #include <iostream>
@@ -10,145 +10,145 @@
 @author Igor Spiridonov
 @version 1.0.0
 @date 31.10.2018
-@brief Заголовочный класс для анализатора файла
-@detailed Анализирует jpeg файл по его пути
+@brief Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ Р°РЅР°Р»РёР·Р°С‚РѕСЂР° С„Р°Р№Р»Р°
+@detailed РђРЅР°Р»РёР·РёСЂСѓРµС‚ jpeg С„Р°Р№Р» РїРѕ РµРіРѕ РїСѓС‚Рё
  */
 class JpegExtractor
 {
 public:
 	/*
-	@brief Конструктор
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	*/
 	JpegExtractor() = default;
 
 	/*
-	@brief Конструктор
-	@param[in] pathToFile Путь к анализируемому файлу
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	@param[in] pathToFile РџСѓС‚СЊ Рє Р°РЅР°Р»РёР·РёСЂСѓРµРјРѕРјСѓ С„Р°Р№Р»Сѓ
 	*/
 	JpegExtractor(std::string pathToFile);
 
 	/*
-	@brief Конструктор копирования
-	@param[in] Объект, из которого копируются данные
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	@param[in] РћР±СЉРµРєС‚, РёР· РєРѕС‚РѕСЂРѕРіРѕ РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ
 	*/
 	JpegExtractor(const JpegExtractor& jpegExtractor);
 
 	/*
-	@brief Деструктор
+	@brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	*/
 	~JpegExtractor() = default;
 
 	/*
-	@brief Анализировать файл
-	@detailed Прочитывает файл от начала до конца, получая из него необходимые данные
+	@brief РђРЅР°Р»РёР·РёСЂРѕРІР°С‚СЊ С„Р°Р№Р»
+	@detailed РџСЂРѕС‡РёС‚С‹РІР°РµС‚ С„Р°Р№Р» РѕС‚ РЅР°С‡Р°Р»Р° РґРѕ РєРѕРЅС†Р°, РїРѕР»СѓС‡Р°СЏ РёР· РЅРµРіРѕ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР°РЅРЅС‹Рµ
 	*/
 	void analyzeFile();
 
 	/*
-	@brief Прочесть комментарий
-	@param[in] fis Поток ввода, откуда считываются байты файла
-	@param[in] previousByte Предыдущий считанный байт
-	@param[in] currentByte Только что считанный байт
+	@brief РџСЂРѕС‡РµСЃС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№
+	@param[in] fis РџРѕС‚РѕРє РІРІРѕРґР°, РѕС‚РєСѓРґР° СЃС‡РёС‚С‹РІР°СЋС‚СЃСЏ Р±Р°Р№С‚С‹ С„Р°Р№Р»Р°
+	@param[in] previousByte РџСЂРµРґС‹РґСѓС‰РёР№ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
+	@param[in] currentByte РўРѕР»СЊРєРѕ С‡С‚Рѕ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
 	*/
 	void readCommentary(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
 
 	/*
-	@brief Прочесть информацию о кодировании
-	@param[in] fis Поток ввода, откуда считываются байты файла
-	@param[in] previousByte Предыдущий считанный байт
-	@param[in] currentByte Только что считанный байт
+	@brief РџСЂРѕС‡РµСЃС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєРѕРґРёСЂРѕРІР°РЅРёРё
+	@param[in] fis РџРѕС‚РѕРє РІРІРѕРґР°, РѕС‚РєСѓРґР° СЃС‡РёС‚С‹РІР°СЋС‚СЃСЏ Р±Р°Р№С‚С‹ С„Р°Р№Р»Р°
+	@param[in] previousByte РџСЂРµРґС‹РґСѓС‰РёР№ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
+	@param[in] currentByte РўРѕР»СЊРєРѕ С‡С‚Рѕ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
 	*/
 	void readBaseFrame(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
 
 	/*
-	@brief Прочесть таблицу квантования
-	@param[in] fis Поток ввода, откуда считываются байты файла
-	@param[in] previousByte Предыдущий считанный байт
-	@param[in] currentByte Только что считанный байт
+	@brief РџСЂРѕС‡РµСЃС‚СЊ С‚Р°Р±Р»РёС†Сѓ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
+	@param[in] fis РџРѕС‚РѕРє РІРІРѕРґР°, РѕС‚РєСѓРґР° СЃС‡РёС‚С‹РІР°СЋС‚СЃСЏ Р±Р°Р№С‚С‹ С„Р°Р№Р»Р°
+	@param[in] previousByte РџСЂРµРґС‹РґСѓС‰РёР№ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
+	@param[in] currentByte РўРѕР»СЊРєРѕ С‡С‚Рѕ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
 	*/
 	void readQuantizationTable(std::ifstream& fis, unsigned int& previousByte, unsigned int& currentByte);
 
 	/*
-	@brief Получить размер файла
-	@return Размер файла
+	@brief РџРѕР»СѓС‡РёС‚СЊ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р°
+	@return Р Р°Р·РјРµСЂ С„Р°Р№Р»Р°
 	*/
 	int getFileSize();
 
 	/*
-	@brief Получить высоту изображения
-	@return Высота изображения
+	@brief РџРѕР»СѓС‡РёС‚СЊ РІС‹СЃРѕС‚Сѓ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+	@return Р’С‹СЃРѕС‚Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 	*/
 	int getHeight();
 
 	/*
-	@brief Получить ширину изображения
-	@return Ширина изображения
+	@brief РџРѕР»СѓС‡РёС‚СЊ С€РёСЂРёРЅСѓ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+	@return РЁРёСЂРёРЅР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 	*/
 	int getWidth();
 
 	/*
-	@brief Получить комментарий файла
-	@return Комментарий файла
+	@brief РџРѕР»СѓС‡РёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№ С„Р°Р№Р»Р°
+	@return РљРѕРјРјРµРЅС‚Р°СЂРёР№ С„Р°Р№Р»Р°
 	*/
 	std::string getCommentary();
 
 	/*
-	@brief Получить таблицы квантования
-	@return Динамический массив из таблиц квантования
+	@brief РџРѕР»СѓС‡РёС‚СЊ С‚Р°Р±Р»РёС†С‹ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
+	@return Р”РёРЅР°РјРёС‡РµСЃРєРёР№ РјР°СЃСЃРёРІ РёР· С‚Р°Р±Р»РёС† РєРІР°РЅС‚РѕРІР°РЅРёСЏ
 	*/
 	std::vector<QuantizationTable> getQuantizationTables();
 
 	/*
-	@brief Получить цветовые компоненты
-	@return Динамический массив из цветовых компонентов
+	@brief РџРѕР»СѓС‡РёС‚СЊ С†РІРµС‚РѕРІС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹
+	@return Р”РёРЅР°РјРёС‡РµСЃРєРёР№ РјР°СЃСЃРёРІ РёР· С†РІРµС‚РѕРІС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
 	*/
 	std::vector<Component> getComponents();
 private:
-	std::string pathToFile_; //< Путь к файлу
-	std::string commentary_; //< Комментарий файла
-	int filesize_{ 0 }; //< Размер файла
-	int precisionOfFrameBase_{ 0 }; //< Разрядность значений каналов
-	int heightOfImage_{ 0 }; //< Высота изображения
-	int widthOfImage_{ 0 }; //< Ширина изображения
-	int amountOfComponents_{ 0 }; //< Количество цветовых компонентов
-	std::vector<QuantizationTable> quantizationTables_; //< Таблицы квантования
-	std::vector<Component> components_; //< Цветовые компоненты
+	std::string pathToFile_; //< РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ
+	std::string commentary_; //< РљРѕРјРјРµРЅС‚Р°СЂРёР№ С„Р°Р№Р»Р°
+	int filesize_{ 0 }; //< Р Р°Р·РјРµСЂ С„Р°Р№Р»Р°
+	int precisionOfFrameBase_{ 0 }; //< Р Р°Р·СЂСЏРґРЅРѕСЃС‚СЊ Р·РЅР°С‡РµРЅРёР№ РєР°РЅР°Р»РѕРІ
+	int heightOfImage_{ 0 }; //< Р’С‹СЃРѕС‚Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+	int widthOfImage_{ 0 }; //< РЁРёСЂРёРЅР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+	int amountOfComponents_{ 0 }; //< РљРѕР»РёС‡РµСЃС‚РІРѕ С†РІРµС‚РѕРІС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
+	std::vector<QuantizationTable> quantizationTables_; //< РўР°Р±Р»РёС†С‹ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
+	std::vector<Component> components_; //< Р¦РІРµС‚РѕРІС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹
 
-	const int lengthOfQuantizationSize = 3; //< Длина описания таблицы квантования
-	const int lengthOfCommentarySize = 2; //< Длина описания комментария
-	const int lengthOfFrameBaseSize = 2; //< Длина описания цветовых компонентов
+	const int lengthOfQuantizationSize = 3; //< Р”Р»РёРЅР° РѕРїРёСЃР°РЅРёСЏ С‚Р°Р±Р»РёС†С‹ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
+	const int lengthOfCommentarySize = 2; //< Р”Р»РёРЅР° РѕРїРёСЃР°РЅРёСЏ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ
+	const int lengthOfFrameBaseSize = 2; //< Р”Р»РёРЅР° РѕРїРёСЃР°РЅРёСЏ С†РІРµС‚РѕРІС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
 
-	const unsigned int startOfFile[2]{ 0xFF, 0xD8 }; //< Байты начала файла
+	const unsigned int startOfFile[2]{ 0xFF, 0xD8 }; //< Р‘Р°Р№С‚С‹ РЅР°С‡Р°Р»Р° С„Р°Р№Р»Р°
 
-	const unsigned int startOfFrame[2]{ 0xFF, 0xC0 }; //< Байты начала цветовых компонентов
+	const unsigned int startOfFrame[2]{ 0xFF, 0xC0 }; //< Р‘Р°Р№С‚С‹ РЅР°С‡Р°Р»Р° С†РІРµС‚РѕРІС‹С… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
 
-	const unsigned int startOfQuantization[2]{ 0xFF, 0xDB }; //< Байты начала таблиц квантования
+	const unsigned int startOfQuantization[2]{ 0xFF, 0xDB }; //< Р‘Р°Р№С‚С‹ РЅР°С‡Р°Р»Р° С‚Р°Р±Р»РёС† РєРІР°РЅС‚РѕРІР°РЅРёСЏ
 
-	const unsigned int startOfCommentary[2]{ 0xFF, 0xFE }; //< Байты начала комментария
+	const unsigned int startOfCommentary[2]{ 0xFF, 0xFE }; //< Р‘Р°Р№С‚С‹ РЅР°С‡Р°Р»Р° РєРѕРјРјРµРЅС‚Р°СЂРёСЏ
 
-	const unsigned int startOfEnd[2]{ 0xFF, 0xD9 }; //< Байты начала конца
+	const unsigned int startOfEnd[2]{ 0xFF, 0xD9 }; //< Р‘Р°Р№С‚С‹ РЅР°С‡Р°Р»Р° РєРѕРЅС†Р°
 };
 
 /*
-@brief Проверка файла на пустоту
-@param[out] ostrm Поток ввода
-@return Пуст ли файл
+@brief РџСЂРѕРІРµСЂРєР° С„Р°Р№Р»Р° РЅР° РїСѓСЃС‚РѕС‚Сѓ
+@param[out] ostrm РџРѕС‚РѕРє РІРІРѕРґР°
+@return РџСѓСЃС‚ Р»Рё С„Р°Р№Р»
 */
 bool isFileEmpty(std::ifstream &ifs);
 
 /*
-@brief Прочесть следующий байт
-@param[in] fis Поток ввода, откуда считываются байты файла
-@param[in] previousByte Предыдущий считанный байт
-@param[in] currentByte Только что считанный байт
+@brief РџСЂРѕС‡РµСЃС‚СЊ СЃР»РµРґСѓСЋС‰РёР№ Р±Р°Р№С‚
+@param[in] fis РџРѕС‚РѕРє РІРІРѕРґР°, РѕС‚РєСѓРґР° СЃС‡РёС‚С‹РІР°СЋС‚СЃСЏ Р±Р°Р№С‚С‹ С„Р°Р№Р»Р°
+@param[in] previousByte РџСЂРµРґС‹РґСѓС‰РёР№ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
+@param[in] currentByte РўРѕР»СЊРєРѕ С‡С‚Рѕ СЃС‡РёС‚Р°РЅРЅС‹Р№ Р±Р°Р№С‚
 */
 void readByte(std::ifstream& ifs, unsigned int& previous, unsigned int& current);
 
 /*
-@brief Получить шестнадцатеричный символ из десятичного числа
-@param[int] number Десятичное число, откуда берём символ
-@param[int] position Индекс искомого символа
-@return Шестнадцатеричный символ
+@brief РџРѕР»СѓС‡РёС‚СЊ С€РµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅС‹Р№ СЃРёРјРІРѕР» РёР· РґРµСЃСЏС‚РёС‡РЅРѕРіРѕ С‡РёСЃР»Р°
+@param[int] number Р”РµСЃСЏС‚РёС‡РЅРѕРµ С‡РёСЃР»Рѕ, РѕС‚РєСѓРґР° Р±РµСЂС‘Рј СЃРёРјРІРѕР»
+@param[int] position РРЅРґРµРєСЃ РёСЃРєРѕРјРѕРіРѕ СЃРёРјРІРѕР»Р°
+@return РЁРµСЃС‚РЅР°РґС†Р°С‚РµСЂРёС‡РЅС‹Р№ СЃРёРјРІРѕР»
 */
 char getHexLetterFromNumberAt(int number, int position);
 

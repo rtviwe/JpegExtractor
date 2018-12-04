@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #ifndef COMPONENT_HPP
 #define COMPONENT_HPP
 
@@ -8,61 +8,61 @@
 @author Igor Spiridonov
 @version 1.0.0
 @date 11.11.2018
-@brief Заголовочный файл для цветового компонента
-@detailed Содержит в себе данные о данном цветовом компоненте
+@brief Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РґР»СЏ С†РІРµС‚РѕРІРѕРіРѕ РєРѕРјРїРѕРЅРµРЅС‚Р°
+@detailed РЎРѕРґРµСЂР¶РёС‚ РІ СЃРµР±Рµ РґР°РЅРЅС‹Рµ Рѕ РґР°РЅРЅРѕРј С†РІРµС‚РѕРІРѕРј РєРѕРјРїРѕРЅРµРЅС‚Рµ
  */
 struct Component
 {
 	/*
-	@brief Конструктор
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	*/
 	Component() = default;
 
 	/*
-	@brief Конструктор копирования
-	@param[in] component Цветовой компонент, из которого копируются данные
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	@param[in] component Р¦РІРµС‚РѕРІРѕР№ РєРѕРјРїРѕРЅРµРЅС‚, РёР· РєРѕС‚РѕСЂРѕРіРѕ РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ
 	*/
 	Component(const Component& component);
 
 	/*
-	@brief Конструктор
-	@param[in] id Идентификатор компонента
-	@param[in] horizontalThinning Горизонтальное прореживание
-	@param[in] verticalThinning Вертикальное прореживание
-	@param[in] idQuantizationTable Идентификатор таблицы квантования
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	@param[in] id РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєРѕРјРїРѕРЅРµРЅС‚Р°
+	@param[in] horizontalThinning Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРµ РїСЂРѕСЂРµР¶РёРІР°РЅРёРµ
+	@param[in] verticalThinning Р’РµСЂС‚РёРєР°Р»СЊРЅРѕРµ РїСЂРѕСЂРµР¶РёРІР°РЅРёРµ
+	@param[in] idQuantizationTable РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚Р°Р±Р»РёС†С‹ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
 	*/
 	Component(const int id, const int horizontalThinning, const int verticalThinning, const int idQuantizationTable);
 
 	/*
-	@brief Деструктор
+	@brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	*/
 	~Component() = default;
 	
 	/*
-	@brief Вывод данных о компоненте
-	@param[out] ostrm Поток вывода
-	@return Поток вывода
+	@brief Р’С‹РІРѕРґ РґР°РЅРЅС‹С… Рѕ РєРѕРјРїРѕРЅРµРЅС‚Рµ
+	@param[out] ostrm РџРѕС‚РѕРє РІС‹РІРѕРґР°
+	@return РџРѕС‚РѕРє РІС‹РІРѕРґР°
 	*/
 	std::ostream& writeTo(std::ostream& ostrm) const;
 
 	/*
-	@brief Оператор присваивания
-	@param[in] table Цветовой компонент, к которому присваивается текущий объект
-	@return Новый цветовой компонент
+	@brief РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
+	@param[in] table Р¦РІРµС‚РѕРІРѕР№ РєРѕРјРїРѕРЅРµРЅС‚, Рє РєРѕС‚РѕСЂРѕРјСѓ РїСЂРёСЃРІР°РёРІР°РµС‚СЃСЏ С‚РµРєСѓС‰РёР№ РѕР±СЉРµРєС‚
+	@return РќРѕРІС‹Р№ С†РІРµС‚РѕРІРѕР№ РєРѕРјРїРѕРЅРµРЅС‚
 	*/
 	Component& operator=(const Component& table) = default;
 
-	int id{ 0 }; //< Идентификатор
-	int horizontalThinning{ 0 }; //< Горизонтальное прореживание
-	int verticalThinning{ 0 }; //< Вертикальное прореживание
-	int idQuantizationTable{ 0 }; //< Идентификатор таблицы квантования
+	int id{ 0 }; //< РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
+	int horizontalThinning{ 0 }; //< Р“РѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРµ РїСЂРѕСЂРµР¶РёРІР°РЅРёРµ
+	int verticalThinning{ 0 }; //< Р’РµСЂС‚РёРєР°Р»СЊРЅРѕРµ РїСЂРѕСЂРµР¶РёРІР°РЅРёРµ
+	int idQuantizationTable{ 0 }; //< РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚Р°Р±Р»РёС†С‹ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
 };
 
 /*
-@brief Оператор вывода
-@param[out] ostrm Поток вывода
-@param[out] rhs Компонент, который выводится в поток вывода
-@return Поток вывода
+@brief РћРїРµСЂР°С‚РѕСЂ РІС‹РІРѕРґР°
+@param[out] ostrm РџРѕС‚РѕРє РІС‹РІРѕРґР°
+@param[out] rhs РљРѕРјРїРѕРЅРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РІС‹РІРѕРґРёС‚СЃСЏ РІ РїРѕС‚РѕРє РІС‹РІРѕРґР°
+@return РџРѕС‚РѕРє РІС‹РІРѕРґР°
 */
 std::ostream& operator<<(std::ostream& ostrm, const Component& rhs);
 

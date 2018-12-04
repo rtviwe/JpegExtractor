@@ -1,4 +1,4 @@
-#include "quantization_table.hpp"
+﻿#include "quantization_table.hpp"
 
 QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
 	: size(qTable.size),

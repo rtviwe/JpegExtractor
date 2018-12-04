@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #ifndef QUANTIZATION_TABLE_HPP
 #define QUANTIZATION_TABLE_HPP
 
@@ -8,66 +8,66 @@
 @author Igor Spiridonov
 @version 1.0.0
 @date 1.11.2018
-@brief Заголовочный файл для таблицы квантования
-@detailed Содержит в себе данные о таблице квантования
+@brief Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РґР»СЏ С‚Р°Р±Р»РёС†С‹ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
+@detailed РЎРѕРґРµСЂР¶РёС‚ РІ СЃРµР±Рµ РґР°РЅРЅС‹Рµ Рѕ С‚Р°Р±Р»РёС†Рµ РєРІР°РЅС‚РѕРІР°РЅРёСЏ
  */
 struct QuantizationTable
 {
 	/*
-	@brief Конструктор
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	*/
 	QuantizationTable() = default;
 
 	/*
-	@brief Конструктор копирования
-	@param[in] component Таблица кватования, из которой копируются данные	
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	@param[in] component РўР°Р±Р»РёС†Р° РєРІР°С‚РѕРІР°РЅРёСЏ, РёР· РєРѕС‚РѕСЂРѕР№ РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ	
 	*/
 	QuantizationTable(const QuantizationTable& newTable);
 
 	/*
-	@brief Конструктор
-	@param[in] size Размер квадратной матрицы
-	@param[in] valueLength Длина каждого элемента матрицы
-	@param[in] tableId Идентификатор таблицы
-	@param[in] table Матрица
+	@brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	@param[in] size Р Р°Р·РјРµСЂ РєРІР°РґСЂР°С‚РЅРѕР№ РјР°С‚СЂРёС†С‹
+	@param[in] valueLength Р”Р»РёРЅР° РєР°Р¶РґРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РјР°С‚СЂРёС†С‹
+	@param[in] tableId РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚Р°Р±Р»РёС†С‹
+	@param[in] table РњР°С‚СЂРёС†Р°
 	*/
 	QuantizationTable(const int size, const int valueLength, const int tableId, int** table);
 
 	/*
-	@brief Деструктор
+	@brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	*/
 	~QuantizationTable();
 
 	/*
-	@brief Оператор присваивания
-	@param[in] table Таблица квантования, к которой присваивается текущий объект
-	@return Новая таблица квантования
+	@brief РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
+	@param[in] table РўР°Р±Р»РёС†Р° РєРІР°РЅС‚РѕРІР°РЅРёСЏ, Рє РєРѕС‚РѕСЂРѕР№ РїСЂРёСЃРІР°РёРІР°РµС‚СЃСЏ С‚РµРєСѓС‰РёР№ РѕР±СЉРµРєС‚
+	@return РќРѕРІР°СЏ С‚Р°Р±Р»РёС†Р° РєРІР°РЅС‚РѕРІР°РЅРёСЏ
 	*/
 	QuantizationTable& operator=(const QuantizationTable& table);
 
 	/*
-	@brief Преобразование матрицы зигзагом
+	@brief РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РјР°С‚СЂРёС†С‹ Р·РёРіР·Р°РіРѕРј
 	*/
 	void turnTableToZigzagOrder();
 
 	/*
-	@brief Вывод данных о компоненте
-	@param[out] ostrm Поток вывода
-	@return Поток вывода
+	@brief Р’С‹РІРѕРґ РґР°РЅРЅС‹С… Рѕ РєРѕРјРїРѕРЅРµРЅС‚Рµ
+	@param[out] ostrm РџРѕС‚РѕРє РІС‹РІРѕРґР°
+	@return РџРѕС‚РѕРє РІС‹РІРѕРґР°
 	*/
 	std::ostream& writeTo(std::ostream& ostrm) const;
 
-	int size{ 0 }; //< Размер квадратной матрицы
-	int valueLength{ 0 }; //< Длина каждого элемента матрицы
-	int tableId{ 0 }; //< Идентификатор таблицы
-	int** table{ nullptr }; //< Матрица
+	int size{ 0 }; //< Р Р°Р·РјРµСЂ РєРІР°РґСЂР°С‚РЅРѕР№ РјР°С‚СЂРёС†С‹
+	int valueLength{ 0 }; //< Р”Р»РёРЅР° РєР°Р¶РґРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РјР°С‚СЂРёС†С‹
+	int tableId{ 0 }; //< РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚Р°Р±Р»РёС†С‹
+	int** table{ nullptr }; //< РњР°С‚СЂРёС†Р°
 };
 
 /*
-@brief Оператор вывода
-@param[out] ostrm Поток вывода
-@param[out] rhs Таблица квантования, которая выводится в поток вывода
-@return Поток вывода
+@brief РћРїРµСЂР°С‚РѕСЂ РІС‹РІРѕРґР°
+@param[out] ostrm РџРѕС‚РѕРє РІС‹РІРѕРґР°
+@param[out] rhs РўР°Р±Р»РёС†Р° РєРІР°РЅС‚РѕРІР°РЅРёСЏ, РєРѕС‚РѕСЂР°СЏ РІС‹РІРѕРґРёС‚СЃСЏ РІ РїРѕС‚РѕРє РІС‹РІРѕРґР°
+@return РџРѕС‚РѕРє РІС‹РІРѕРґР°
 */
 std::ostream& operator<<(std::ostream& ostrm, const QuantizationTable& rhs);
 

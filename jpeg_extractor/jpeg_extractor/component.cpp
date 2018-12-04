@@ -1,4 +1,4 @@
-#include "component.hpp"
+﻿#include "component.hpp"
 
 Component::Component(const Component& component)
 	: id(component.id),
