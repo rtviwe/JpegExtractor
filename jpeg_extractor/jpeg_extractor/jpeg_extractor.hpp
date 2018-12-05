@@ -152,4 +152,12 @@ void readByte(std::ifstream& ifs, unsigned int& previous, unsigned int& current)
 */
 char getHexLetterFromNumberAt(int number, int position);
 
+/*
+@brief Оператор вывода
+@param[out] ostrm Поток вывода
+@param[out] rhs Все данные JPEG файла, которые выводится в поток вывода
+@return Поток вывода
+*/
+std::ostream& operator<<(std::ostream& ostrm, JpegExtractor& rhs);
+
 #endif

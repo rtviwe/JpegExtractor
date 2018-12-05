@@ -1,46 +1,51 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <string>
 #include "../jpeg_extractor/jpeg_extractor.hpp"
 #include "../jpeg_extractor/component.hpp"
 
-using namespace std;
-
 int main()
 {
-	string path1 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg";
-	string path2 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img2.jpg";
-	string path3 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img3.jpg";
-	string path4 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img4.jpg";
-	string path5 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img5.jpg";
-	string* paths = new string[5]{ path1, path2, path3, path4, path5 };
+	std::string path1 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg";
+	std::string path2 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img2.jpg";
+	std::string path3 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img3.jpg";
+	std::string path4 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img4.jpg";
+	std::string path5 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img5.jpg";
+	std::string* paths = new std::string[5]{ path1, path2, path3, path4, path5 };
 
-	JpegExtractor je(paths[4]);
-	je.analyzeFile();
+	JpegExtractor jpeg_extractor(paths[4]);
+	jpeg_extractor.analyzeFile();
 
-	// Ðàçìåð ôàéëà
-	std::cout << "Filesize: " << je.getFileSize() << " bytes" << std::endl;
+	// Ð Ð°Ð·Ð¼ÐµÑ€ Ñ„Ð°Ð¹Ð»Ð°
+	std::cout << "Filesize: " << jpeg_extractor.getFileSize() << " bytes" << std::endl;
 
-	// Êîììåíòàðèé
-	std::cout << "Comment: " << je.getCommentary() << std::endl;
+	// ÐšÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ð¹
+	std::cout << "Comment: " << jpeg_extractor.getCommentary() << std::endl;
 
-	// Ðàçìåðû èçîáðàæåíèÿ
-	std::cout << "Height: " << je.getHeight() << std::endl;
-	std::cout << "Width: " << je.getWidth() << std::endl;
+	// Ð Ð°Ð·Ð¼ÐµÑ€Ñ‹ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ
+	std::cout << "Height: " << jpeg_extractor.getHeight() << std::endl;
+	std::cout << "Width: " << jpeg_extractor.getWidth() << std::endl;
 
-	// Òàáëèöà êâàíòîâàíèÿ
-	for (int i(0); i < je.getQuantizationTables().size(); i++)
+	// Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° ÐºÐ²Ð°Ð½Ñ‚Ð¾Ð²Ð°Ð½Ð¸Ñ
+	for (int i(0); i < jpeg_extractor.getQuantizationTables().size(); i++)
 	{
-		QuantizationTable qTable = je.getQuantizationTables()[i];
+		QuantizationTable qTable = jpeg_extractor.getQuantizationTables()[i];
 		std::cout << "Table of quantization #" << qTable.tableId << ":" << std::endl;
 		std::cout << "Value length = " << qTable.valueLength << " byte" << std::endl;
 		std::cout << qTable;
 	}
 
-	// Êîìïîíåíòû
-	for (int i(0); i < je.getComponents().size(); i++)
+	// ÐšÐ¾Ð¼Ð¿Ð¾Ð½ÐµÐ½Ñ‚Ñ‹
+	for (int i(0); i < jpeg_extractor.getComponents().size(); i++)
 	{
-		std::cout << "Component #" << i << " " << je.getComponents()[i] << std::endl;
+		std::cout << "Component #" << i << " " << jpeg_extractor.getComponents()[i] << std::endl;
 	}
+
+	std::cout << std::endl;
+
+	// Ð”Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÐºÐ¸Ñ€Ð¸Ð»Ð»Ð¸Ñ†Ñ‹
+	setlocale(LC_ALL, "Russian");
+	// Ð’Ñ‹Ð²ÐµÑÑ‚Ð¸ Ð²ÑÐµ Ð´Ð°Ð½Ð½Ñ‹Ðµ
+	std::cout << jpeg_extractor << std::endl;
 
 	return 0;
 }

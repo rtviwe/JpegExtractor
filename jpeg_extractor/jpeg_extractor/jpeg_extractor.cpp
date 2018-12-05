@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
+#include <string>
 #include <iomanip>
 #include <vector>
 #include "jpeg_extractor.hpp"
@@ -185,6 +186,28 @@ void JpegExtractor::readQuantizationTable(std::ifstream& fis, unsigned int& prev
 
 	int newIndex = quantizationTables_.size() - 1;
 	quantizationTables_[newIndex].turnTableToZigzagOrder();
+}
+
+std::ostream& operator<<(std::ostream& ostrm, JpegExtractor& rhs)
+{
+	ostrm << "Размер файла: " << rhs.getFileSize() << std::endl;
+	ostrm << "Комментарий: " << rhs.getCommentary() << std::endl;
+	ostrm << "Высота: " << rhs.getHeight() << std::endl;
+	ostrm << "Ширина: " << rhs.getWidth() << std::endl;
+
+	for (QuantizationTable table : rhs.getQuantizationTables())
+	{
+		ostrm << "Table of quantization #" << table.tableId << ":" << std::endl;
+		ostrm << "Value length = " << table.valueLength << " byte" << std::endl;
+		ostrm << table << std::endl;
+	}
+
+	for (Component component : rhs.getComponents())
+	{
+		ostrm << component << std::endl;
+	}
+
+	return ostrm;
 }
 
 int JpegExtractor::getFileSize()
