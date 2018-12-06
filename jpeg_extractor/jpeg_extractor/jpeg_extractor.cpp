@@ -73,7 +73,8 @@ void JpegExtractor::analyzeFile()
 
 	std::ifstream fis(pathToFile_, std::ios_base::binary | std::ios_base::in);
 
-	if (isFileEmpty(fis)) {
+	if (isFileEmpty(fis))
+	{
 		throw std::exception("File is empty");
 	}
 
@@ -83,6 +84,15 @@ void JpegExtractor::analyzeFile()
 
 	unsigned int previousByte = 0;
 	unsigned int currentByte = 0;
+
+	readByte(fis, previousByte, currentByte);
+	readByte(fis, previousByte, currentByte);
+	if (previousByte != startOfFile[0] || currentByte != startOfFile[1])
+	{
+		throw std::exception("File is not JPEG");
+	}
+
+	isFileAnalyzed = true;
 
 	while (!fis.eof())
 	{
@@ -212,30 +222,60 @@ std::ostream& operator<<(std::ostream& ostrm, JpegExtractor& rhs)
 
 int JpegExtractor::getFileSize()
 {
+	if (!isFileAnalyzed)
+	{
+		throw std::exception("File is not analyzed");
+	}
+
 	return filesize_;
 }
 
 int JpegExtractor::getHeight()
 {
+	if (!isFileAnalyzed)
+	{
+		throw std::exception("File is not analyzed");
+	}
+
 	return heightOfImage_;
 }
 
 int JpegExtractor::getWidth()
 {
+	if (!isFileAnalyzed)
+	{
+		throw std::exception("File is not analyzed");
+	}
+
 	return widthOfImage_;
 }
 
 std::string JpegExtractor::getCommentary()
 {
+	if (!isFileAnalyzed)
+	{
+		throw std::exception("File is not analyzed");
+	}
+
 	return commentary_;
 }
 
 std::vector<QuantizationTable> JpegExtractor::getQuantizationTables()
 {
+	if (!isFileAnalyzed)
+	{
+		throw std::exception("File is not analyzed");
+	}
+
 	return quantizationTables_;
 }
 
 std::vector<Component> JpegExtractor::getComponents()
 {
+	if (!isFileAnalyzed)
+	{
+		throw std::exception("File is not analyzed");
+	}
+
 	return components_;
 }

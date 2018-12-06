@@ -12,7 +12,7 @@ int main()
 	std::string path5 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img5.jpg";
 	std::string* paths = new std::string[5]{ path1, path2, path3, path4, path5 };
 
-	JpegExtractor jpeg_extractor(paths[4]);
+	JpegExtractor jpeg_extractor(paths[0]);
 	jpeg_extractor.analyzeFile();
 
 	// Размер файла

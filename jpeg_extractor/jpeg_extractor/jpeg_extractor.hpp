@@ -113,6 +113,7 @@ private:
 	int amountOfComponents_{ 0 }; //< Количество цветовых компонентов
 	std::vector<QuantizationTable> quantizationTables_; //< Таблицы квантования
 	std::vector<Component> components_; //< Цветовые компоненты
+	bool isFileAnalyzed = false; //< Проанализирован ли файл
 
 	const int lengthOfQuantizationSize = 3; //< Длина описания таблицы квантования
 	const int lengthOfCommentarySize = 2; //< Длина описания комментария
