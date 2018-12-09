@@ -2,9 +2,16 @@
 #include <string>
 #include "../jpeg_extractor/jpeg_extractor.hpp"
 #include "../jpeg_extractor/component.hpp"
+#include <stdio.h> 
+#include <direct.h>
 
 int main()
 {
+	char current_work_dir[FILENAME_MAX];
+	_getcwd(current_work_dir, sizeof(current_work_dir));
+	
+	std::string path(current_work_dir);
+
 	std::string path1 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg";
 	std::string path2 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img2.jpg";
 	std::string path3 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img3.jpg";

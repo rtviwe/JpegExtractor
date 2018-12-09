@@ -1,5 +1,9 @@
 ﻿#include "component.hpp"
 
+/*
+@brief Конструктор копирования
+@param[in] component Цветовой компонент, из которого копируются данные
+*/
 Component::Component(const Component& component)
 	: id(component.id),
 	horizontalThinning(component.horizontalThinning),
@@ -8,6 +12,13 @@ Component::Component(const Component& component)
 {
 }
 
+/*
+@brief Конструктор
+@param[in] id Идентификатор компонента
+@param[in] horizontalThinning Горизонтальное прореживание
+@param[in] verticalThinning Вертикальное прореживание
+@param[in] idQuantizationTable Идентификатор таблицы квантования
+*/
 Component::Component(const int id, const int horizontalThinning, const int verticalThinning, const int idOfTable)
 	: id(id),
 	horizontalThinning(horizontalThinning),
@@ -16,11 +27,22 @@ Component::Component(const int id, const int horizontalThinning, const int verti
 {
 }
 
+/*
+@brief Оператор вывода
+@param[out] ostrm Поток вывода
+@param[out] rhs Компонент, который выводится в поток вывода
+@return Поток вывода
+*/
 std::ostream& operator<<(std::ostream& ostrm, const Component& rhs)
 {
 	return rhs.writeTo(ostrm);
 }
 
+/*
+@brief Вывод данных о компоненте
+@param[out] ostrm Поток вывода
+@return Поток вывода
+*/
 std::ostream& Component::writeTo(std::ostream& ostrm) const
 {
 	ostrm << "id: " << id << " horizontal thinning: " << horizontalThinning

@@ -1,4 +1,10 @@
-﻿#ifndef JPEG_EXTRACTOR_HPP
+﻿/*
+ @file component.hpp
+ @Author Igor Spiridonov
+ @date 09.12.2018
+ */
+
+#ifndef JPEG_EXTRACTOR_HPP
 #define JPEG_EXTRACTOR_HPP
 
 #include <iostream>

@@ -1,4 +1,10 @@
-﻿#pragma once
+﻿/*
+ @file component.hpp
+ @Author Igor Spiridonov
+ @date 09.12.2018
+ */
+
+#pragma once
 #ifndef QUANTIZATION_TABLE_HPP
 #define QUANTIZATION_TABLE_HPP
 

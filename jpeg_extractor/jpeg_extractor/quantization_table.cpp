@@ -1,5 +1,9 @@
 ﻿#include "quantization_table.hpp"
 
+/*
+@brief Конструктор копирования
+@param[in] component Таблица кватования, из которой копируются данные
+*/
 QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
 	: size(qTable.size),
 	valueLength(qTable.valueLength),
@@ -18,6 +22,13 @@ QuantizationTable::QuantizationTable(const QuantizationTable& qTable)
 	}
 }
 
+/*
+@brief Конструктор
+@param[in] size Размер квадратной матрицы
+@param[in] valueLength Длина каждого элемента матрицы
+@param[in] tableId Идентификатор таблицы
+@param[in] table Матрица
+*/
 QuantizationTable::QuantizationTable(const int size, const int valueLength, const int tableId, int** table)
 	: size(size),
 	valueLength(valueLength),
@@ -41,6 +52,9 @@ QuantizationTable::~QuantizationTable()
 	delete[] table;
 }
 
+/*
+@brief Преобразование матрицы зигзагом
+*/
 void QuantizationTable::turnTableToZigzagOrder()
 {
 	int lastValue(size * size - 1);
@@ -96,6 +110,11 @@ void QuantizationTable::turnTableToZigzagOrder()
 	} while (currDiag <= lastValue);
 }
 
+/*
+@brief Оператор присваивания
+@param[in] table Таблица квантования, к которой присваивается текущий объект
+@return Новая таблица квантования
+*/
 QuantizationTable& QuantizationTable::operator=(const QuantizationTable& obj)
 {
 	if (this != &obj)
@@ -112,11 +131,22 @@ QuantizationTable& QuantizationTable::operator=(const QuantizationTable& obj)
 	return *this;
 }
 
+/*
+@brief Оператор вывода
+@param[out] ostrm Поток вывода
+@param[out] rhs Таблица квантования, которая выводится в поток вывода
+@return Поток вывода
+*/
 std::ostream& operator<<(std::ostream& ostrm, const QuantizationTable& rhs)
 {
 	return rhs.writeTo(ostrm);
 }
 
+/*
+@brief Вывод данных о компоненте
+@param[out] ostrm Поток вывода
+@return Поток вывода
+*/
 std::ostream& QuantizationTable::writeTo(std::ostream& ostrm) const
 {
 	for (int j(0); j < size; j++)
