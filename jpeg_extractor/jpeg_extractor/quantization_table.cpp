@@ -1,4 +1,10 @@
-﻿#include "quantization_table.hpp"
+﻿/*
+ @file component.hpp
+ @Author Igor Spiridonov
+ @date 09.12.2018
+ */
+
+#include "quantization_table.hpp"
 
 /*
 @brief Конструктор копирования

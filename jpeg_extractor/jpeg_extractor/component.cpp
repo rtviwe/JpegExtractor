@@ -1,4 +1,10 @@
-﻿#include "component.hpp"
+﻿/*
+ @file component.hpp
+ @Author Igor Spiridonov
+ @date 09.12.2018
+ */
+
+#include "component.hpp"
 
 /*
 @brief Конструктор копирования

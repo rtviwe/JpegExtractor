@@ -1,4 +1,10 @@
-﻿#include <iostream>
+﻿/*
+ @file component.hpp
+ @Author Igor Spiridonov
+ @date 09.12.2018
+ */
+
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <iomanip>
