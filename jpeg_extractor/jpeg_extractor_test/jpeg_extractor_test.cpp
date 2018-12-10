@@ -2,24 +2,18 @@
 #include <string>
 #include "../jpeg_extractor/jpeg_extractor.hpp"
 #include "../jpeg_extractor/component.hpp"
-#include <stdio.h> 
-#include <direct.h>
 
 int main()
 {
-	char current_work_dir[FILENAME_MAX];
-	_getcwd(current_work_dir, sizeof(current_work_dir));
-	
-	std::string path(current_work_dir);
+	// Для вывода кириллицы
+	setlocale(LC_ALL, "Russian");
 
-	std::string path1 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg";
-	std::string path2 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img2.jpg";
-	std::string path3 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img3.jpg";
-	std::string path4 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img4.jpg";
-	std::string path5 = "C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img5.jpg";
-	std::string* paths = new std::string[5]{ path1, path2, path3, path4, path5 };
+	std::string path;
+	std::cout << "Введите путь к файлу:";
+	// Пример: C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg
+	std::cin >> path;
 
-	JpegExtractor jpeg_extractor(paths[0]);
+	JpegExtractor jpeg_extractor(path);
 	jpeg_extractor.analyzeFile();
 
 	// Размер файла
@@ -49,8 +43,6 @@ int main()
 
 	std::cout << std::endl;
 
-	// Для вывода кириллицы
-	setlocale(LC_ALL, "Russian");
 	// Вывести все данные
 	std::cout << jpeg_extractor << std::endl;
 
