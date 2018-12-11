@@ -1,7 +1,9 @@
 ﻿/*
  @file component.hpp
  @Author Igor Spiridonov
+ @version 1.0.0
  @date 09.12.2018
+ @mainpage Главная страница
  */
 
 #include <iostream>
