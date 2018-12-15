@@ -18,51 +18,65 @@
 @brief Заголовочный файл для цветового компонента
 @detailed Содержит в себе данные о данном цветовом компоненте
  */
-struct Component
-{
-	/*
-	@brief Конструктор
-	*/
-	Component() = default;
+struct Component {
+    /*
+    @brief Конструктор
+    */
+    Component() = default;
 
-	/*
-	@brief Конструктор копирования
-	@param[in] component Цветовой компонент, из которого копируются данные
-	*/
-	Component(const Component& component);
+    /*
+    @brief Конструктор копирования
+    @param[in] component Цветовой компонент, из которого копируются данные
+    */
+    Component(const Component &component);
 
-	/*
-	@brief Конструктор
-	@param[in] id Идентификатор компонента
-	@param[in] horizontalThinning Горизонтальное прореживание
-	@param[in] verticalThinning Вертикальное прореживание
-	@param[in] idQuantizationTable Идентификатор таблицы квантования
-	*/
-	Component(const int id, const int horizontalThinning, const int verticalThinning, const int idQuantizationTable);
+    /*
+    @brief Конструктор
+    @param[in] id Идентификатор компонента
+    @param[in] horizontalThinning Горизонтальное прореживание
+    @param[in] verticalThinning Вертикальное прореживание
+    @param[in] idQuantizationTable Идентификатор таблицы квантования
+    */
+    Component(const int id, const int horizontalThinning, const int verticalThinning, const int idQuantizationTable);
 
-	/*
-	@brief Деструктор
-	*/
-	~Component() = default;
-	
-	/*
-	@brief Вывод данных о компоненте
-	@param[out] ostrm Поток вывода
-	@return Поток вывода
-	*/
-	std::ostream& writeTo(std::ostream& ostrm) const;
+    /*
+    @brief Деструктор
+    */
+    ~Component() = default;
 
-	/*
-	@brief Оператор присваивания
-	@param[in] table Цветовой компонент, к которому присваивается текущий объект
-	@return Новый цветовой компонент
-	*/
-	Component& operator=(const Component& table) = default;
+    /*
+    @brief Вывод данных о компоненте
+    @param[out] ostrm Поток вывода
+    @return Поток вывода
+    */
+    std::ostream &writeTo(std::ostream &ostrm) const;
 
-	int id{ 0 }; //< Идентификатор
-	int horizontalThinning{ 0 }; //< Горизонтальное прореживание
-	int verticalThinning{ 0 }; //< Вертикальное прореживание
-	int idQuantizationTable{ 0 }; //< Идентификатор таблицы квантования
+    /*
+    @brief Оператор присваивания
+    @param[in] table Цветовой компонент, к которому присваивается текущий объект
+    @return Новый цветовой компонент
+    */
+    Component &operator=(const Component &table) = default;
+
+    /*
+    @brief Идентификатор
+    */
+    int id{0};
+
+    /*
+    @brief Горизонтальное прореживание
+    */
+    int horizontalThinning{0};
+
+    /*
+    @brief Вертикальное прореживание
+    */
+    int verticalThinning{0};
+
+    /*
+    @brief Идентификатор таблицы квантования
+    */
+    int idQuantizationTable{0};
 };
 
 /*
@@ -71,6 +85,6 @@ struct Component
 @param[out] rhs Компонент, который выводится в поток вывода
 @return Поток вывода
 */
-std::ostream& operator<<(std::ostream& ostrm, const Component& rhs);
+std::ostream &operator<<(std::ostream &ostrm, const Component &rhs);
 
 #endif

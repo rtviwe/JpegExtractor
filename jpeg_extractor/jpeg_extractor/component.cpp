@@ -11,12 +11,11 @@
 @brief Конструктор копирования
 @param[in] component Цветовой компонент, из которого копируются данные
 */
-Component::Component(const Component& component)
-	: id(component.id),
-	horizontalThinning(component.horizontalThinning),
-	verticalThinning(component.verticalThinning),
-	idQuantizationTable(component.idQuantizationTable)
-{
+Component::Component(const Component &component)
+        : id(component.id),
+          horizontalThinning(component.horizontalThinning),
+          verticalThinning(component.verticalThinning),
+          idQuantizationTable(component.idQuantizationTable) {
 }
 
 /*
@@ -27,11 +26,10 @@ Component::Component(const Component& component)
 @param[in] idQuantizationTable Идентификатор таблицы квантования
 */
 Component::Component(const int id, const int horizontalThinning, const int verticalThinning, const int idOfTable)
-	: id(id),
-	horizontalThinning(horizontalThinning),
-	verticalThinning(verticalThinning),
-	idQuantizationTable(idOfTable)
-{
+        : id(id),
+          horizontalThinning(horizontalThinning),
+          verticalThinning(verticalThinning),
+          idQuantizationTable(idOfTable) {
 }
 
 /*
@@ -40,9 +38,8 @@ Component::Component(const int id, const int horizontalThinning, const int verti
 @param[out] rhs Компонент, который выводится в поток вывода
 @return Поток вывода
 */
-std::ostream& operator<<(std::ostream& ostrm, const Component& rhs)
-{
-	return rhs.writeTo(ostrm);
+std::ostream &operator<<(std::ostream &ostrm, const Component &rhs) {
+    return rhs.writeTo(ostrm);
 }
 
 /*
@@ -50,9 +47,8 @@ std::ostream& operator<<(std::ostream& ostrm, const Component& rhs)
 @param[out] ostrm Поток вывода
 @return Поток вывода
 */
-std::ostream& Component::writeTo(std::ostream& ostrm) const
-{
-	ostrm << "id: " << id << " horizontal thinning: " << horizontalThinning
-		<< " vertical thinning: " << verticalThinning << " id of table quantization: " << idQuantizationTable;
-	return ostrm;
+std::ostream &Component::writeTo(std::ostream &ostrm) const {
+    ostrm << "id: " << id << " horizontal thinning: " << horizontalThinning
+          << " vertical thinning: " << verticalThinning << " id of table quantization: " << idQuantizationTable;
+    return ostrm;
 }
