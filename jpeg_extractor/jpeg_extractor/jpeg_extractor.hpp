@@ -18,7 +18,7 @@
 @version 1.0.0
 @date 31.10.2018
 @brief Заголовочный класс для анализатора файла
-@detailed Анализирует jpeg файл по его пути
+@detailed Анализирует JPEG файл по его пути
  */
 class JpegExtractor {
 public:

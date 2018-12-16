@@ -246,8 +246,8 @@ std::ostream &operator<<(std::ostream &ostrm, JpegExtractor &rhs) {
     ostrm << "Ширина: " << rhs.getWidth() << std::endl;
 
     for (QuantizationTable table : rhs.getQuantizationTables()) {
-        ostrm << "Table of quantization #" << table.tableId << ":" << std::endl;
-        ostrm << "Value length = " << table.valueLength << " byte" << std::endl;
+        ostrm << "Таблица квантования #" << table.tableId << ":" << std::endl;
+        ostrm << "Длина значения = " << table.valueLength << " byte" << std::endl;
         ostrm << table << std::endl;
     }
 
