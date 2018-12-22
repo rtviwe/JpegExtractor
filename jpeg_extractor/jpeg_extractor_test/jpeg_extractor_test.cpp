@@ -1,18 +1,19 @@
 ﻿#include <iostream>
 #include <string>
 #include "../jpeg_extractor/jpeg_extractor.hpp"
-#include "../jpeg_extractor/component.hpp"
 
 int main() {
     // Для вывода кириллицы
     setlocale(LC_ALL, "Russian");
 
-    std::string path;
-    std::cout << "Введите путь к файлу: ";
-    // Пример: C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg
-    std::cin >> path;
+//    std::string path;
+//    std::cout << "Введите путь к файлу: ";
+//    // Пример: C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg
+//    std::cin >> path;
 
-    JpegExtractor jpeg_extractor(path);
+    std::string path2 = "./img1.jpg";
+
+    JpegExtractor jpeg_extractor(path2);
     jpeg_extractor.analyzeFile();
 
     // Размер файла
