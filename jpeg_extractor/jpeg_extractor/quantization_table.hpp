@@ -37,7 +37,7 @@ struct QuantizationTable {
     \param[in] tableId Идентификатор таблицы
     \param[in] table Матрица
     */
-    QuantizationTable(const int size, const int valueLength, const int tableId, int **table);
+    QuantizationTable(int size, int valueLength, int tableId, int **table);
 
     /*
     \brief Деструктор
