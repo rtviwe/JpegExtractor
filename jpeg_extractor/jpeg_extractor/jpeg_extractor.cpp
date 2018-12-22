@@ -1,9 +1,9 @@
 ﻿/*
- @file component.hpp
- @Author Igor Spiridonov
- @version 1.0.0
- @date 09.12.2018
- @mainpage Главная страница
+ \file component.hpp
+ \Author Igor Spiridonov
+ \version 1.0.0
+ \date 09.12.2018
+ \mainpage Главная страница
  */
 
 #include <iostream>
@@ -14,9 +14,9 @@
 #include "jpeg_extractor.hpp"
 
 /*
-@brief Проверка файла на пустоту
-@param[out] ostrm Поток ввода
-@return Пуст ли файл
+\brief Проверка файла на пустоту
+\param[out] ostrm Поток ввода
+\return Пуст ли файл
 */
 bool isFileEmpty(std::ifstream &ifs) {
     char c;
@@ -30,10 +30,10 @@ bool isFileEmpty(std::ifstream &ifs) {
 }
 
 /*
-@brief Прочесть следующий байт
-@param[in] fis Поток ввода, откуда считываются байты файла
-@param[in] previousByte Предыдущий считанный байт
-@param[in] currentByte Только что считанный байт
+\brief Прочесть следующий байт
+\param[in] fis Поток ввода, откуда считываются байты файла
+\param[in] previousByte Предыдущий считанный байт
+\param[in] currentByte Только что считанный байт
 */
 void readByte(std::ifstream &ifs, unsigned int &previous, unsigned int &current) {
     uint8_t buffer[1] = {0};
@@ -44,10 +44,10 @@ void readByte(std::ifstream &ifs, unsigned int &previous, unsigned int &current)
 }
 
 /*
-@brief Получить шестнадцатеричный символ из десятичного числа
-@param[int] number Десятичное число, откуда берём символ
-@param[int] position Индекс искомого символа
-@return Шестнадцатеричный символ
+\brief Получить шестнадцатеричный символ из десятичного числа
+\param[int] number Десятичное число, откуда берём символ
+\param[int] position Индекс искомого символа
+\return Шестнадцатеричный символ
 */
 char getHexLetterFromNumberAt(int number, int position) {
     int quotient(number);
@@ -67,16 +67,16 @@ char getHexLetterFromNumberAt(int number, int position) {
 }
 
 /*
-@brief Конструктор
-@param[in] pathToFile Путь к анализируемому файлу
+\brief Конструктор
+\param[in] pathToFile Путь к анализируемому файлу
 */
 JpegExtractor::JpegExtractor(std::string pathToFile)
         : pathToFile_(pathToFile) {
 }
 
 /*
-@brief Конструктор копирования
-@param[in] Объект, из которого копируются данные
+\brief Конструктор копирования
+\param[in] Объект, из которого копируются данные
 */
 JpegExtractor::JpegExtractor(const JpegExtractor &jpegExtractor)
         : pathToFile_(jpegExtractor.pathToFile_),
@@ -91,8 +91,8 @@ JpegExtractor::JpegExtractor(const JpegExtractor &jpegExtractor)
 }
 
 /*
-@brief Анализировать файл
-@detailed Прочитывает файл от начала до конца, получая из него необходимые данные
+\brief Анализировать файл
+\detailed Прочитывает файл от начала до конца, получая из него необходимые данные
 */
 void JpegExtractor::analyzeFile() {
     if (pathToFile_.empty()) {
@@ -138,10 +138,10 @@ void JpegExtractor::analyzeFile() {
 }
 
 /*
-@brief Прочесть комментарий
-@param[in] fis Поток ввода, откуда считываются байты файла
-@param[in] previousByte Предыдущий считанный байт
-@param[in] currentByte Только что считанный байт
+\brief Прочесть комментарий
+\param[in] fis Поток ввода, откуда считываются байты файла
+\param[in] previousByte Предыдущий считанный байт
+\param[in] currentByte Только что считанный байт
 */
 void JpegExtractor::readCommentary(std::ifstream &fis, unsigned int &previousByte, unsigned int &currentByte) {
     readByte(fis, previousByte, currentByte);
@@ -156,10 +156,10 @@ void JpegExtractor::readCommentary(std::ifstream &fis, unsigned int &previousByt
 }
 
 /*
-@brief Прочесть информацию о кодировании
-@param[in] fis Поток ввода, откуда считываются байты файла
-@param[in] previousByte Предыдущий считанный байт
-@param[in] currentByte Только что считанный байт
+\brief Прочесть информацию о кодировании
+\param[in] fis Поток ввода, откуда считываются байты файла
+\param[in] previousByte Предыдущий считанный байт
+\param[in] currentByte Только что считанный байт
 */
 void JpegExtractor::readBaseFrame(std::ifstream &fis, unsigned int &previousByte, unsigned int &currentByte) {
     readByte(fis, previousByte, currentByte);
@@ -198,10 +198,10 @@ void JpegExtractor::readBaseFrame(std::ifstream &fis, unsigned int &previousByte
 }
 
 /*
-@brief Прочесть таблицу квантования
-@param[in] fis Поток ввода, откуда считываются байты файла
-@param[in] previousByte Предыдущий считанный байт
-@param[in] currentByte Только что считанный байт
+\brief Прочесть таблицу квантования
+\param[in] fis Поток ввода, откуда считываются байты файла
+\param[in] previousByte Предыдущий считанный байт
+\param[in] currentByte Только что считанный байт
 */
 void JpegExtractor::readQuantizationTable(std::ifstream &fis, unsigned int &previousByte, unsigned int &currentByte) {
     readByte(fis, previousByte, currentByte);
@@ -234,10 +234,10 @@ void JpegExtractor::readQuantizationTable(std::ifstream &fis, unsigned int &prev
 }
 
 /*
-@brief Оператор вывода
-@param[out] ostrm Поток вывода
-@param[out] rhs Все данные JPEG файла, которые выводится в поток вывода
-@return Поток вывода
+\brief Оператор вывода
+\param[out] ostrm Поток вывода
+\param[out] rhs Все данные JPEG файла, которые выводится в поток вывода
+\return Поток вывода
 */
 std::ostream &operator<<(std::ostream &ostrm, JpegExtractor &rhs) {
     ostrm << "Размер файла: " << rhs.getFileSize() << std::endl;
@@ -259,8 +259,8 @@ std::ostream &operator<<(std::ostream &ostrm, JpegExtractor &rhs) {
 }
 
 /*
-@brief Получить размер файла
-@return Размер файла
+\brief Получить размер файла
+\return Размер файла
 */
 int JpegExtractor::getFileSize() {
     if (!isFileAnalyzed) {
@@ -271,8 +271,8 @@ int JpegExtractor::getFileSize() {
 }
 
 /*
-@brief Получить высоту изображения
-@return Высота изображения
+\brief Получить высоту изображения
+\return Высота изображения
 */
 int JpegExtractor::getHeight() {
     if (!isFileAnalyzed) {
@@ -283,8 +283,8 @@ int JpegExtractor::getHeight() {
 }
 
 /*
-@brief Получить ширину изображения
-@return Ширина изображения
+\brief Получить ширину изображения
+\return Ширина изображения
 */
 int JpegExtractor::getWidth() {
     if (!isFileAnalyzed) {
@@ -295,8 +295,8 @@ int JpegExtractor::getWidth() {
 }
 
 /*
-@brief Получить комментарий файла
-@return Комментарий файла
+\brief Получить комментарий файла
+\return Комментарий файла
 */
 std::string JpegExtractor::getCommentary() {
     if (!isFileAnalyzed) {
@@ -307,8 +307,8 @@ std::string JpegExtractor::getCommentary() {
 }
 
 /*
-@brief Получить таблицы квантования
-@return Динамический массив из таблиц квантования
+\brief Получить таблицы квантования
+\return Динамический массив из таблиц квантования
 */
 std::vector<QuantizationTable> JpegExtractor::getQuantizationTables() {
     if (!isFileAnalyzed) {
@@ -319,8 +319,8 @@ std::vector<QuantizationTable> JpegExtractor::getQuantizationTables() {
 }
 
 /*
-@brief Получить цветовые компоненты
-@return Динамический массив из цветовых компонентов
+\brief Получить цветовые компоненты
+\return Динамический массив из цветовых компонентов
 */
 std::vector<Component> JpegExtractor::getComponents() {
     if (!isFileAnalyzed) {
