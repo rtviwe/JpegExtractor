@@ -1,4 +1,4 @@
-﻿/*
+﻿/*!
  \file component.hpp
  \Author Igor Spiridonov
  \version 1.0.0
@@ -7,7 +7,7 @@
 
 #include "quantization_table.hpp"
 
-/*
+/*!
 \brief Конструктор копирования
 \param[in] component Таблица кватования, из которой копируются данные
 */
@@ -26,7 +26,7 @@ QuantizationTable::QuantizationTable(const QuantizationTable &qTable)
     }
 }
 
-/*
+/*!
 \brief Конструктор
 \param[in] size Размер квадратной матрицы
 \param[in] valueLength Длина каждого элемента матрицы
@@ -52,7 +52,7 @@ QuantizationTable::~QuantizationTable() {
     delete[] table;
 }
 
-/*
+/*!
 \brief Преобразование матрицы зигзагом
 */
 void QuantizationTable::turnTableToZigzagOrder() {
@@ -99,7 +99,7 @@ void QuantizationTable::turnTableToZigzagOrder() {
     } while (currDiag <= lastValue);
 }
 
-/*
+/*!
 \brief Оператор присваивания
 \param[in] table Таблица квантования, к которой присваивается текущий объект
 \return Новая таблица квантования
@@ -118,7 +118,7 @@ QuantizationTable &QuantizationTable::operator=(const QuantizationTable &obj) {
     return *this;
 }
 
-/*
+/*!
 \brief Оператор вывода
 \param[out] ostrm Поток вывода
 \param[out] rhs Таблица квантования, которая выводится в поток вывода
@@ -128,7 +128,7 @@ std::ostream &operator<<(std::ostream &ostrm, const QuantizationTable &rhs) {
     return rhs.writeTo(ostrm);
 }
 
-/*
+/*!
 \brief Вывод данных о компоненте
 \param[out] ostrm Поток вывода
 \return Поток вывода

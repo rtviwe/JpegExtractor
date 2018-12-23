@@ -1,4 +1,4 @@
-﻿/*
+﻿/*!
  \file component.hpp
  \Author Igor Spiridonov
  \version 1.0.0
@@ -7,7 +7,7 @@
 
 #include "component.hpp"
 
-/*
+/*!
 \brief Конструктор копирования
 \param[in] component Цветовой компонент, из которого копируются данные
 */
@@ -18,7 +18,7 @@ Component::Component(const Component &component)
           idQuantizationTable(component.idQuantizationTable) {
 }
 
-/*
+/*!
 \brief Конструктор
 \param[in] id Идентификатор компонента
 \param[in] horizontalThinning Горизонтальное прореживание
@@ -32,7 +32,7 @@ Component::Component(const int id, const int horizontalThinning, const int verti
           idQuantizationTable(idOfTable) {
 }
 
-/*
+/*!
 \brief Оператор вывода
 \param[out] ostrm Поток вывода
 \param[out] rhs Компонент, который выводится в поток вывода
@@ -42,7 +42,7 @@ std::ostream &operator<<(std::ostream &ostrm, const Component &rhs) {
     return rhs.writeTo(ostrm);
 }
 
-/*
+/*!
 \brief Вывод данных о компоненте
 \param[out] ostrm Поток вывода
 \return Поток вывода
