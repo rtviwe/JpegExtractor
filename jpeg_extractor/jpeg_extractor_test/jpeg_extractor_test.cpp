@@ -6,14 +6,9 @@ int main() {
     // Для вывода кириллицы
     setlocale(LC_ALL, "Russian");
 
-//    std::string path;
-//    std::cout << "Введите путь к файлу: ";
-//    // Пример: C:\\Users\\rtviw\\source\\repos\\JpegExtractor\\res\\img1.jpg
-//    std::cin >> path;
+    std::string path = "./img1.jpg";
 
-    std::string path2 = "./img1.jpg";
-
-    JpegExtractor jpeg_extractor(path2);
+    JpegExtractor jpeg_extractor(path);
     jpeg_extractor.analyzeFile();
 
     std::cout << "Размер файла: " << jpeg_extractor.getFileSize() << " байтов" << std::endl;
@@ -37,6 +32,27 @@ int main() {
     std::cout << std::endl;
 
     std::cout << jpeg_extractor << std::endl;
+
+    JpegExtractor je("");
+    try {
+        je.analyzeFile();
+    } catch (std::exception) {
+        std::cout << "Путь к файлу пуст" << std::endl;
+    }
+
+    JpegExtractor je2("not existing file");
+    try {
+        je2.analyzeFile();
+    } catch (std::exception) {
+        std::cout << "Файл не существует" << std::endl;
+    }
+
+    JpegExtractor je3("./img3.jpg");
+    try {
+        je3.analyzeFile();
+    } catch (std::exception) {
+        std::cout << "Файл не JPEG формата" << std::endl;
+    }
 
     return 0;
 }
