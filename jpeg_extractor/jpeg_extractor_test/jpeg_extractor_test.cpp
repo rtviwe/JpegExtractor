@@ -1,58 +1,143 @@
 ﻿#include <iostream>
 #include <string>
+#include <vector>
+#include <fstream>
 #include "../jpeg_extractor/jpeg_extractor.hpp"
+
+bool testFileSize(JpegExtractor &jpeg_extractor, int &answer) {
+    return jpeg_extractor.getFileSize() == answer;
+}
+
+bool testCommentary(JpegExtractor &jpeg_extractor, const std::string &answer) {
+    return jpeg_extractor.getCommentary() == answer;
+}
+
+bool testHeight(JpegExtractor &jpeg_extractor, int &answer) {
+    return jpeg_extractor.getHeight() == answer;
+}
+
+bool testWidth(JpegExtractor &jpeg_extractor, int &answer) {
+    return jpeg_extractor.getWidth() == answer;
+}
+
+bool testQuantizationTables(JpegExtractor &jpeg_extractor, QuantizationTable &answer) {
+    QuantizationTable qTable = jpeg_extractor.getQuantizationTables()[0];
+
+    if (qTable.size != answer.size) {
+        return false;
+    }
+
+    if (qTable.valueLength != answer.valueLength) {
+        return false;
+    }
+
+    if (qTable.tableId != answer.tableId) {
+        return false;
+    }
+
+    for (int i(0); i < 8; i++) {
+        for (int j(0); j < 8; j++) {
+            if (qTable.table[i][j] != answer.table[i][j]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool testComponents(JpegExtractor &jpeg_extractor, Component &answer) {
+    std::vector<Component> components;
+    Component component = jpeg_extractor.getComponents()[0];
+
+    if (component.id != answer.id) {
+        return false;
+    }
+
+    if (component.horizontalThinning != answer.horizontalThinning) {
+        return false;
+    }
+
+    if (component.verticalThinning != answer.verticalThinning) {
+        return false;
+    }
+
+    if (component.idQuantizationTable != answer.idQuantizationTable) {
+        return false;
+    }
+
+    return true;
+}
 
 int main() {
     // Для вывода кириллицы
     setlocale(LC_ALL, "Russian");
 
-    std::string path = "./img1.jpg";
+    std::string path = "./resources/img4.jpg";
 
     JpegExtractor jpeg_extractor(path);
     jpeg_extractor.analyzeFile();
 
-    std::cout << "Размер файла: " << jpeg_extractor.getFileSize() << " байтов" << std::endl;
+    std::string answerpath = "./resources/answers4.txt";
+    std::ifstream fis(answerpath, std::ios_base::in);
 
-    std::cout << "Комментарий: " << jpeg_extractor.getCommentary() << std::endl;
-
-    std::cout << "Высота: " << jpeg_extractor.getHeight() << std::endl;
-    std::cout << "Ширина: " << jpeg_extractor.getWidth() << std::endl;
-
-    for (int i(0); i < jpeg_extractor.getQuantizationTables().size(); i++) {
-        QuantizationTable qTable = jpeg_extractor.getQuantizationTables()[i];
-        std::cout << "Таблица квантования #" << qTable.tableId << ":" << std::endl;
-        std::cout << "Длина значения = " << qTable.valueLength << " байт" << std::endl;
-        std::cout << qTable;
+    std::vector<std::string> lines;
+    std::string line;
+    if (fis.is_open()) {
+        while (getline(fis, line)) {
+            lines.push_back(line);
+        }
     }
 
-    for (int i(0); i < jpeg_extractor.getComponents().size(); i++) {
-        std::cout << "Компонент #" << i << " " << jpeg_extractor.getComponents()[i] << std::endl;
+    fis.close();
+
+    int filesize = std::stoi(lines[0]);
+    std::string commentary = lines[1];
+    int height = std::stoi(lines[2]);
+    int width = std::stoi(lines[3]);
+    int qsize = std::stoi(lines[4]);
+    int qvalueLength = std::stoi(lines[5]);
+    int qtableid = std::stoi(lines[6]);
+
+    int **qtable = new int *[qsize + 1];
+
+    int k = 0;
+    int i = 7;
+    for (i; i < qsize * qsize + 7; i += 8) {
+        qtable[k] = new int[qsize];
+
+        for (int j(0); j < qsize; j++) {
+            std::string temp;
+            temp.append(lines[i + j]);
+            qtable[k][j] = std::stoi(temp);
+        }
+
+        k += 1;
     }
 
-    std::cout << std::endl;
+    QuantizationTable rightTable(qsize, qvalueLength, qtableid, qtable);
 
-    std::cout << jpeg_extractor << std::endl;
+    int id = std::stoi(lines[i]);
+    int horizontalThinning = std::stoi(lines[i + 1]);
+    int verticalThinning = std::stoi(lines[i + 2]);
+    int idQuantizationTable = std::stoi(lines[i + 3]);
 
-    JpegExtractor je("");
-    try {
-        je.analyzeFile();
-    } catch (std::exception) {
-        std::cout << "Путь к файлу пуст" << std::endl;
-    }
+    Component component(id, horizontalThinning, verticalThinning, idQuantizationTable);
 
-    JpegExtractor je2("not existing file");
-    try {
-        je2.analyzeFile();
-    } catch (std::exception) {
-        std::cout << "Файл не существует" << std::endl;
-    }
+    std::cout << "Тест размера файла " << (testFileSize(jpeg_extractor, filesize) ? "пройден" : "не пройден")
+              << std::endl;
+    std::cout << "Тест комментария " << (testCommentary(jpeg_extractor, commentary + "\n") ? "пройден" : "не пройден")
+              << std::endl;
+    std::cout << "Тест высоты " << (testHeight(jpeg_extractor, height) ? "пройден" : "не пройден") << std::endl;
+    std::cout << "Тест ширины " << (testWidth(jpeg_extractor, width) ? "пройден" : "не пройден") << std::endl;
 
-    JpegExtractor je3("./img3.jpg");
-    try {
-        je3.analyzeFile();
-    } catch (std::exception) {
-        std::cout << "Файл не JPEG формата" << std::endl;
-    }
+    std::cout << "Тест таблиц квантования "
+              << (testQuantizationTables(jpeg_extractor, rightTable) ? "пройден" : "не пройден") << std::endl;
+    std::cout << "Тест компонентов " << (testComponents(jpeg_extractor, component) ? "пройден" : "не пройден")
+              << std::endl;
+
+    // Вывести все данные
+    std::cout << std::endl << jpeg_extractor << std::endl;
 
     return 0;
 }
