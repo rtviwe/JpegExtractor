@@ -11,6 +11,8 @@
 #include <string>
 #include <iomanip>
 #include <vector>
+#include <cmath>
+#include <sys/stat.h>
 #include "jpeg_extractor.hpp"
 
 /*!
@@ -96,13 +98,13 @@ JpegExtractor::JpegExtractor(const JpegExtractor &jpegExtractor)
 */
 void JpegExtractor::analyzeFile() {
     if (pathToFile_.empty()) {
-        throw std::exception("Filepath is empty");
+        throw std::runtime_error("Filepath is empty");
     }
 
     std::ifstream fis(pathToFile_, std::ios_base::binary | std::ios_base::in);
 
     if (isFileEmpty(fis)) {
-        throw std::exception("File is empty");
+        throw std::runtime_error("File is empty");
     }
 
     struct stat st_one;
@@ -115,7 +117,7 @@ void JpegExtractor::analyzeFile() {
     readByte(fis, previousByte, currentByte);
     readByte(fis, previousByte, currentByte);
     if (previousByte != startOfFile[0] || currentByte != startOfFile[1]) {
-        throw std::exception("File is not JPEG");
+        throw std::runtime_error("File is not JPEG");
     }
 
     isFileAnalyzed = true;
@@ -264,7 +266,7 @@ std::ostream &operator<<(std::ostream &ostrm, JpegExtractor &rhs) {
 */
 int JpegExtractor::getFileSize() {
     if (!isFileAnalyzed) {
-        throw std::exception("File is not analyzed");
+        throw std::runtime_error("File is not analyzed");
     }
 
     return filesize_;
@@ -276,7 +278,7 @@ int JpegExtractor::getFileSize() {
 */
 int JpegExtractor::getHeight() {
     if (!isFileAnalyzed) {
-        throw std::exception("File is not analyzed");
+        throw std::runtime_error("File is not analyzed");
     }
 
     return heightOfImage_;
@@ -288,7 +290,7 @@ int JpegExtractor::getHeight() {
 */
 int JpegExtractor::getWidth() {
     if (!isFileAnalyzed) {
-        throw std::exception("File is not analyzed");
+        throw std::runtime_error("File is not analyzed");
     }
 
     return widthOfImage_;
@@ -300,7 +302,7 @@ int JpegExtractor::getWidth() {
 */
 std::string JpegExtractor::getCommentary() {
     if (!isFileAnalyzed) {
-        throw std::exception("File is not analyzed");
+        throw std::runtime_error("File is not analyzed");
     }
 
     return commentary_;
@@ -312,7 +314,7 @@ std::string JpegExtractor::getCommentary() {
 */
 std::vector<QuantizationTable> JpegExtractor::getQuantizationTables() {
     if (!isFileAnalyzed) {
-        throw std::exception("File is not analyzed");
+        throw std::runtime_error("File is not analyzed");
     }
 
     return quantizationTables_;
@@ -324,7 +326,7 @@ std::vector<QuantizationTable> JpegExtractor::getQuantizationTables() {
 */
 std::vector<Component> JpegExtractor::getComponents() {
     if (!isFileAnalyzed) {
-        throw std::exception("File is not analyzed");
+        throw std::runtime_error("File is not analyzed");
     }
 
     return components_;
